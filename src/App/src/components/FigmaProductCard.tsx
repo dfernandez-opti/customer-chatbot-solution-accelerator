@@ -1,16 +1,18 @@
 import React, { memo } from 'react';
 import { Product } from '@/lib/types';
+import { Button } from '@/components/ui/button';
 
 interface FigmaProductCardProps {
   product: Product;
-  onAddToCart?: (product: Product) => void;
+  onRequestQuote?: (product: Product) => void;
 }
 
-export const FigmaProductCard = memo(({ product, onAddToCart }: FigmaProductCardProps) => {
+export const FigmaProductCard = memo(({ product, onRequestQuote }: FigmaProductCardProps) => {
+  // Servicios: price 0 o isService. Sin precios, solo botón Cotizar.
+  const isService = product.isService === true || product.price === 0;
   return (
-    <div className="group relative space-y-2">
-      {/* Product Image */}
-      <div className="relative aspect-square overflow-hidden rounded-lg">
+    <div className="group relative flex flex-col h-full min-h-0">
+      <div className="relative aspect-square overflow-hidden rounded-lg bg-muted/30 flex-shrink-0">
         <img
           src={product.image}
           alt={`${product.title} - ${product.category}`}
@@ -20,22 +22,26 @@ export const FigmaProductCard = memo(({ product, onAddToCart }: FigmaProductCard
         />
       </div>
       
-      <div className="space-y-1">
-        {/* Product Name */}
-        <h3 className="font-medium text-foreground text-sm leading-tight group-hover:text-primary transition-colors">
+      <div className="flex flex-col flex-1 min-h-0 pt-2">
+        <h3 className="font-medium text-foreground text-sm leading-tight group-hover:text-primary transition-colors line-clamp-2">
           {product.title}
         </h3>
         
-        {/* Product Description */}
-        <p className="text-xs text-muted-foreground leading-relaxed">
-          {product.description || `${product.category.toLowerCase()}, modern, clean`}
+        <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2 flex-1 mt-1 min-h-[2.5rem]">
+          {product.description || `${product.category.toLowerCase()}`}
         </p>
         
-        {/* Price */}
-        <div className="flex items-center justify-between">
-          <span className="font-semibold text-sm text-foreground" aria-label={`Price: ${product.price.toFixed(2)} USD`}>
-            {product.price.toFixed(2)} USD
-          </span>
+        {/* Botón alineado al fondo de la tarjeta */}
+        <div className="pt-2 mt-auto">
+          {onRequestQuote && (
+            <Button
+              size="sm"
+              onClick={() => onRequestQuote(product)}
+              className="w-full h-8 text-xs justify-center"
+            >
+              Solicitar cotización
+            </Button>
+          )}
         </div>
       </div>
     </div>

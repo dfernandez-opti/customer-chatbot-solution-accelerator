@@ -318,6 +318,7 @@ Original error: {error_msg}
                     description=item.get("description", ""),
                     tags=item.get("tags", []),
                     specifications=item.get("specifications", {}),
+                    is_service=item.get("is_service", item.get("price", 0) == 0),
                 )
                 products.append(product)
 
@@ -366,6 +367,7 @@ Original error: {error_msg}
                     description=item.get("description", ""),
                     tags=item.get("tags", []),
                     specifications=item.get("specifications", {}),
+                    is_service=item.get("is_service", item.get("price", 0) == 0),
                     created_at=item.get("created_at", datetime.utcnow()),
                     updated_at=item.get("updated_at", datetime.utcnow()),
                 )

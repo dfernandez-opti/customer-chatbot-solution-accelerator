@@ -20,13 +20,13 @@ class ReferencePlugin:
     def lookup(self, query: str, top: int = 3) -> str:
         """Enhanced lookup with natural language responses"""
         if not self.is_configured:
-            return "I don't have access to policy information right now. Please contact our support team for assistance."
+            return "No tengo acceso a la información de políticas en este momento. Por favor contacta a nuestro equipo de soporte."
 
         try:
             hits = search_reference_enhanced(query, top)
 
             if not hits:
-                return "I couldn't find specific information about that. Let me help you contact our support team who can assist you directly."
+                return "No encontré información específica sobre eso. ¿Te gustaría que te pongamos en contacto con nuestro equipo de soporte?"
 
             # Format response naturally using the best available information
             response_parts = []
@@ -56,15 +56,15 @@ class ReferencePlugin:
             # Add helpful context if it's about returns or policies
             if any(
                 keyword in query.lower()
-                for keyword in ["return", "refund", "policy", "warranty"]
+                for keyword in ["return", "refund", "policy", "warranty", "devolución", "reembolso", "política", "garantía"]
             ):
-                combined_response += " If you need further assistance, you can call our support team at 1-800-555-0199."
+                combined_response += " Si necesitas más ayuda, contacta a nuestro equipo de soporte."
 
             return combined_response
 
         except Exception as e:
             logger.error(f"Error searching reference documents: {e}")
-            return "I'm having trouble accessing policy information right now. Please contact our support team for immediate assistance."
+            return "Tengo problemas para acceder a la información de políticas. Por favor contacta a nuestro equipo de soporte."
 
     @kernel_function(description="Get return policy information with natural language")
     def get_return_policy(self) -> str:
@@ -85,15 +85,14 @@ class ReferencePlugin:
     def lookup_policy(self, query: str, context: str = "") -> str:
         """Enhanced policy lookup with context awareness"""
         if not self.is_configured:
-            return "I don't have access to policy information right now. Please contact support."
+            return "No tengo acceso a la información de políticas. Por favor contacta a soporte."
 
         try:
-            # Enhanced search with context
             search_query = f"{query} {context}".strip()
             hits = search_reference_enhanced(search_query, top=3)
 
             if not hits:
-                return "I couldn't find specific information about that. Let me help you contact support."
+                return "No encontré información específica sobre eso. ¿Te gustaría contactar a soporte?"
 
             # Format response naturally
             response_parts = []
@@ -109,8 +108,8 @@ class ReferencePlugin:
                         content = content[:200] + "..."
                     response_parts.append(content)
 
-            return " ".join(response_parts[:2])  # Limit to 2 most relevant parts
+            return " ".join(response_parts[:2])
 
         except Exception as e:
             logger.error(f"Policy lookup error: {e}")
-            return "I'm having trouble accessing policy information. Please contact support."
+            return "Tengo problemas para acceder a la información de políticas. Por favor contacta a soporte."

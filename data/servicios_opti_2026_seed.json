@@ -1,0 +1,828 @@
+[
+  {
+    "id": "servicio_seguridad-integral-microsoft_a1b2c3d4e5f6",
+    "categoria": "Seguridad",
+    "nombre": "Seguridad Integral basada en Microsoft",
+    "descripcion": "Estrategia de seguridad integral basada en el ecosistema Microsoft para proteger identidades, dispositivos, aplicaciones y datos en entornos híbridos y multicloud.",
+    "problemas_que_resuelve": [
+      "Amenazas crecientes en entornos híbridos y multicloud",
+      "Riesgos en identidades, dispositivos, aplicaciones y datos",
+      "Falta de visibilidad centralizada de amenazas",
+      "Cumplimiento normativo complejo",
+      "Respuesta reactiva ante incidentes"
+    ],
+    "incluye": [
+      "Microsoft Defender",
+      "Microsoft Sentinel",
+      "Microsoft Defender for Cloud",
+      "Microsoft Purview",
+      "Microsoft Entra",
+      "Microsoft Intune",
+      "Zero Trust Adoption"
+    ],
+    "beneficios": [
+      "Reduccion de riesgos ciberneticos",
+      "Visibilidad centralizada de amenazas",
+      "Cumplimiento normativo",
+      "Respuesta proactiva ante incidentes"
+    ],
+    "tecnologias": ["Microsoft Defender", "Microsoft Sentinel", "Microsoft Purview", "Microsoft Entra", "Microsoft Intune", "Azure"],
+    "keywords": [
+      "ciberseguridad Microsoft",
+      "SOC",
+      "SIEM",
+      "SOAR",
+      "XDR",
+      "Zero Trust",
+      "DLP",
+      "CSPM",
+      "CWPP",
+      "identidad",
+      "seguridad integral",
+      "Microsoft 365 Defender",
+      "Defender for Cloud"
+    ],
+    "faq_examples": [
+      "Tienen SOC?",
+      "Implementan Zero Trust?",
+      "Ofrecen monitoreo de seguridad 24/7?",
+      "Como protegen identidades y dispositivos?",
+      "Tienen solucion SIEM?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [1, 2, 3]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_microsoft-sentinel-siem-soar_b2c3d4e5f6a7",
+    "categoria": "Seguridad",
+    "nombre": "Microsoft Sentinel (SIEM/SOAR)",
+    "descripcion": "Solucion SIEM/SOAR que centraliza eventos y alertas de seguridad, correlacion, playbooks de automatizacion, threat hunting y modelo de pago por uso.",
+    "problemas_que_resuelve": [
+      "Eventos de seguridad dispersos en multiples fuentes",
+      "Falta de correlacion de alertas",
+      "Respuesta manual lenta ante incidentes",
+      "Dificultad para detectar amenazas avanzadas"
+    ],
+    "incluye": [
+      "Centralizacion de eventos y alertas",
+      "Correlacion inteligente",
+      "Playbooks de automatizacion",
+      "Threat hunting",
+      "Modelo pago por uso"
+    ],
+    "beneficios": [
+      "Visibilidad unificada de seguridad",
+      "Deteccion proactiva de amenazas",
+      "Automatizacion de respuesta",
+      "Escalabilidad con pago por uso"
+    ],
+    "tecnologias": ["Microsoft Sentinel", "Azure", "Log Analytics", "Logic Apps"],
+    "keywords": [
+      "Sentinel",
+      "SIEM",
+      "SOAR",
+      "threat hunting",
+      "playbooks",
+      "correlacion alertas",
+      "SOC",
+      "seguridad",
+      "Azure Sentinel",
+      "automatizacion seguridad",
+      "deteccion amenazas"
+    ],
+    "faq_examples": [
+      "Tienen SIEM?",
+      "Ofrecen Microsoft Sentinel?",
+      "Como centralizan las alertas de seguridad?",
+      "Tienen threat hunting?",
+      "Automatizan la respuesta a incidentes?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [4, 5]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_portafolio-microsoft-defender-xdr_c3d4e5f6a7b8",
+    "categoria": "Seguridad",
+    "nombre": "Portafolio Microsoft Defender (XDR)",
+    "descripcion": "Proteccion XDR unificada para endpoints, identidades, aplicaciones cloud, correo electronico y entornos hibridos y multicloud.",
+    "problemas_que_resuelve": [
+      "Proteccion fragmentada de endpoints y correo",
+      "Amenazas en aplicaciones cloud",
+      "Riesgos en identidades",
+      "Entornos hibridos sin visibilidad"
+    ],
+    "incluye": [
+      "Defender for Endpoint",
+      "Defender for Identity",
+      "Defender for Office 365",
+      "Defender for Cloud Apps",
+      "Proteccion multicloud"
+    ],
+    "beneficios": [
+      "Proteccion unificada XDR",
+      "Cobertura endpoints, correo, identidad, cloud",
+      "Visibilidad multicloud",
+      "Respuesta integrada"
+    ],
+    "tecnologias": ["Microsoft Defender XDR", "Defender for Endpoint", "Defender for Identity", "Defender for Office 365"],
+    "keywords": [
+      "XDR",
+      "Microsoft Defender",
+      "Defender for Endpoint",
+      "Defender for Identity",
+      "Defender for Office 365",
+      "proteccion endpoints",
+      "seguridad correo",
+      "EDR",
+      "multicloud",
+      "Defender for Cloud Apps"
+    ],
+    "faq_examples": [
+      "Que incluye Defender for Cloud?",
+      "Protegen endpoints y correo?",
+      "Tienen solucion XDR?",
+      "Protegen aplicaciones cloud?",
+      "Soportan entornos multicloud?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [5, 6]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_microsoft-defender-for-cloud_d4e5f6a7b8c9",
+    "categoria": "Seguridad",
+    "nombre": "Microsoft Defender for Cloud",
+    "descripcion": "CSPM y CWPP para proteger Azure, on-premises, AWS y GCP. Gestion de vulnerabilidades, deteccion de amenazas y respuesta automatizada.",
+    "problemas_que_resuelve": [
+      "Vulnerabilidades en infraestructura cloud",
+      "Configuraciones inseguras en multicloud",
+      "Falta de visibilidad de amenazas en workloads",
+      "Cumplimiento en entornos hibridos"
+    ],
+    "incluye": [
+      "CSPM (Cloud Security Posture Management)",
+      "CWPP (Cloud Workload Protection)",
+      "Proteccion Azure, on-prem, AWS, GCP",
+      "Gestion de vulnerabilidades",
+      "Deteccion y respuesta ante amenazas"
+    ],
+    "beneficios": [
+      "Postura de seguridad unificada",
+      "Proteccion de cargas de trabajo",
+      "Cumplimiento multicloud",
+      "Respuesta automatizada"
+    ],
+    "tecnologias": ["Microsoft Defender for Cloud", "Azure", "AWS", "GCP"],
+    "keywords": [
+      "Defender for Cloud",
+      "CSPM",
+      "CWPP",
+      "Azure Defender",
+      "multicloud",
+      "vulnerabilidades",
+      "seguridad cloud",
+      "AWS security",
+      "GCP security",
+      "postura seguridad"
+    ],
+    "faq_examples": [
+      "Que incluye Defender for Cloud?",
+      "Protegen AWS y GCP?",
+      "Tienen CSPM?",
+      "Gestionan vulnerabilidades en cloud?",
+      "Soportan infraestructura hibrida?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [6, 7]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_microsoft-purview_e5f6a7b8c9d0",
+    "categoria": "Seguridad",
+    "nombre": "Microsoft Purview",
+    "descripcion": "Gobernanza de datos, DLP, clasificacion, riesgos internos, eDiscovery y cumplimiento normativo.",
+    "problemas_que_resuelve": [
+      "Datos dispersos sin gobernanza",
+      "Riesgo de perdida de datos",
+      "Falta de clasificacion",
+      "Riesgos internos",
+      "Cumplimiento de regulaciones"
+    ],
+    "incluye": [
+      "Gobernanza de datos",
+      "DLP (Data Loss Prevention)",
+      "Clasificacion automatica",
+      "Riesgos internos (Insider Risk)",
+      "eDiscovery",
+      "Cumplimiento"
+    ],
+    "beneficios": [
+      "Visibilidad de datos",
+      "Proteccion contra fugas",
+      "Cumplimiento normativo",
+      "Deteccion de riesgos internos"
+    ],
+    "tecnologias": ["Microsoft Purview", "Azure Purview", "Microsoft 365"],
+    "keywords": [
+      "Purview",
+      "DLP",
+      "gobernanza datos",
+      "clasificacion",
+      "riesgos internos",
+      "eDiscovery",
+      "cumplimiento",
+      "Data Loss Prevention",
+      "insider risk",
+      "informacion sensible"
+    ],
+    "faq_examples": [
+      "Tienen DLP?",
+      "Como clasifican los datos?",
+      "Gestionan riesgos internos?",
+      "Ofrecen eDiscovery?",
+      "Cumplimiento de regulaciones?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [7, 8]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_microsoft-entra_f6a7b8c9d0e1",
+    "categoria": "Seguridad",
+    "nombre": "Microsoft Entra",
+    "descripcion": "Gestion de identidades: Entra ID, Identity Governance, Permissions Management, Verified ID y Workload Identities.",
+    "problemas_que_resuelve": [
+      "Gestion fragmentada de identidades",
+      "Accesos excesivos",
+      "Identidades de cargas de trabajo sin gobierno",
+      "Verificacion de identidad"
+    ],
+    "incluye": [
+      "Entra ID (Azure AD)",
+      "Identity Governance",
+      "Permissions Management",
+      "Verified ID",
+      "Workload Identities"
+    ],
+    "beneficios": [
+      "Identidad unificada",
+      "Gobierno de accesos",
+      "Visibilidad de permisos",
+      "Identidades verificables"
+    ],
+    "tecnologias": ["Microsoft Entra", "Azure AD", "Entra ID", "Verified ID"],
+    "keywords": [
+      "Entra",
+      "Entra ID",
+      "Azure AD",
+      "identity",
+      "identidad",
+      "Identity Governance",
+      "Permissions Management",
+      "Verified ID",
+      "Workload Identities",
+      "acceso cero confianza"
+    ],
+    "faq_examples": [
+      "Implementan Zero Trust?",
+      "Gestionan identidades con Azure AD?",
+      "Tienen Identity Governance?",
+      "Verificacion de identidad?",
+      "Gobierno de permisos?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [8, 9]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_microsoft-intune_a7b8c9d0e1f2",
+    "categoria": "Seguridad",
+    "nombre": "Microsoft Intune",
+    "descripcion": "Administracion de dispositivos y aplicaciones, politicas, integracion con Defender y soporte remoto.",
+    "problemas_que_resuelve": [
+      "Dispositivos no controlados",
+      "Políticas de seguridad inconsistentes",
+      "Falta de visibilidad de dispositivos",
+      "Soporte remoto complejo"
+    ],
+    "incluye": [
+      "Administracion de dispositivos (MDM)",
+      "Administracion de aplicaciones (MAM)",
+      "Politicas de cumplimiento",
+      "Integracion con Defender",
+      "Soporte remoto"
+    ],
+    "beneficios": [
+      "Control unificado de dispositivos",
+      "Cumplimiento de politicas",
+      "Proteccion integrada",
+      "Soporte remoto eficiente"
+    ],
+    "tecnologias": ["Microsoft Intune", "Endpoint Manager", "Defender"],
+    "keywords": [
+      "Intune",
+      "MDM",
+      "MAM",
+      "dispositivos",
+      "Endpoint Manager",
+      "politicas",
+      "mobile",
+      "gestion dispositivos",
+      "soporte remoto",
+      "Defender for Endpoint"
+    ],
+    "faq_examples": [
+      "Administran dispositivos moviles?",
+      "Tienen MDM?",
+      "Integracion con Defender?",
+      "Soporte remoto a dispositivos?",
+      "Politicas de cumplimiento?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [9, 10]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_centro-excelencia-itsm-ia_b8c9d0e1f2a3",
+    "categoria": "ITSM & AIOps",
+    "nombre": "Centro de Excelencia en ITSM + IA",
+    "descripcion": "ITSM con inteligencia artificial para priorizacion, automatizacion y decisiones. Reduccion de tiempos de resolucion y mejor UX.",
+    "problemas_que_resuelve": [
+      "Altos volumenes de incidencias",
+      "Tiempos lentos de resolucion",
+      "Falta de visibilidad operativa",
+      "Priorizacion manual ineficiente"
+    ],
+    "incluye": [
+      "Service Desk",
+      "Automatizacion de procesos",
+      "IA para priorizacion",
+      "IA para decisiones",
+      "Portal de autoservicio"
+    ],
+    "beneficios": [
+      "Reduccion de tiempos de resolucion",
+      "Automatizacion inteligente",
+      "Mejor experiencia de usuario",
+      "Operacion predecible"
+    ],
+    "tecnologias": ["GLPI", "Azure AI", "Power Automate", "ServiceNow"],
+    "keywords": [
+      "ITSM",
+      "Service Desk",
+      "centro de excelencia",
+      "IA",
+      "automatizacion",
+      "priorizacion",
+      "tickets",
+      "incidencias",
+      "ITIL",
+      "servicio tecnico"
+    ],
+    "faq_examples": [
+      "Tienen Service Desk con catalogo?",
+      "Usan IA para priorizar?",
+      "Automatizan la respuesta a incidentes?",
+      "Tienen portal de autoservicio?",
+      "Tiempos de resolucion?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [11, 12]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_aiops-operacion-predictiva_c9d0e1f2a3b4",
+    "categoria": "ITSM & AIOps",
+    "nombre": "AIOps (Operacion predictiva y automatizada)",
+    "descripcion": "Monitoreo proactivo, analisis inteligente de metricas, logs y KPIs, automatizacion y visibilidad predictiva.",
+    "problemas_que_resuelve": [
+      "Monitoreo reactivo",
+      "Alertas sin contexto",
+      "Falta de visibilidad predictiva",
+      "Operacion manual intensiva"
+    ],
+    "incluye": [
+      "Monitoreo proactivo",
+      "Analisis inteligente de metricas y logs",
+      "KPIs y dashboards",
+      "Automatizacion de respuesta",
+      "Visibilidad predictiva"
+    ],
+    "beneficios": [
+      "Deteccion proactiva de problemas",
+      "Reduccion de incidentes",
+      "Operacion predecible",
+      "Automatizacion inteligente"
+    ],
+    "tecnologias": ["Azure Monitor", "Log Analytics", "Application Insights", "Power BI"],
+    "keywords": [
+      "AIOps",
+      "operacion predictiva",
+      "monitoreo",
+      "metricas",
+      "logs",
+      "KPIs",
+      "automatizacion",
+      "observabilidad",
+      "Azure Monitor",
+      "analisis inteligente"
+    ],
+    "faq_examples": [
+      "Tienen AIOps?",
+      "Monitoreo predictivo?",
+      "Analisis de logs con IA?",
+      "Automatizan la operacion?",
+      "Dashboards de KPIs?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [12, 13]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_service-desk-glpi_d0e1f2a3b4c5",
+    "categoria": "ITSM & AIOps",
+    "nombre": "Service Desk con GLPI",
+    "descripcion": "Portal autoservicio, catalogo de servicios, tickets, gestion de activos, KPIs, multiusuario y multisitio. On-prem o Azure.",
+    "problemas_que_resuelve": [
+      "Falta de portal de autoservicio",
+      "Tickets sin trazabilidad",
+      "Activos no inventariados",
+      "Multiples sitios sin gestion unificada"
+    ],
+    "incluye": [
+      "Portal de autoservicio",
+      "Catalogo de servicios",
+      "Gestion de tickets",
+      "Gestion de activos",
+      "KPIs y reportes",
+      "Multiusuario y multisitio",
+      "Despliegue on-prem o Azure"
+    ],
+    "beneficios": [
+      "Autoservicio para usuarios",
+      "Trazabilidad completa",
+      "Inventario de activos",
+      "Escalabilidad multisitio"
+    ],
+    "tecnologias": ["GLPI", "Azure", "MySQL", "PHP"],
+    "keywords": [
+      "GLPI",
+      "Service Desk",
+      "catalogo",
+      "tickets",
+      "activos",
+      "autoservicio",
+      "ITSM",
+      "helpdesk",
+      "portal",
+      "multisitio"
+    ],
+    "faq_examples": [
+      "Tienen Service Desk con catalogo?",
+      "Usan GLPI?",
+      "Portal de autoservicio?",
+      "Gestionan activos?",
+      "Soporte multisitio?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [13, 14]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_soporte-24-7-soc_e1f2a3b4c5d6",
+    "categoria": "ITSM & AIOps",
+    "nombre": "Soporte 24/7 y SOC",
+    "descripcion": "Soporte especializado 24/7, monitoreo continuo, SOC basado en Defender y Sentinel, gestion de incidentes.",
+    "problemas_que_resuelve": [
+      "Soporte sin cobertura 24/7",
+      "Incidentes sin monitoreo continuo",
+      "Falta de SOC dedicado",
+      "Respuesta lenta ante incidentes"
+    ],
+    "incluye": [
+      "Soporte especializado 24/7",
+      "Monitoreo continuo",
+      "SOC",
+      "Defender y Sentinel",
+      "Gestion de incidentes"
+    ],
+    "beneficios": [
+      "Cobertura 24/7",
+      "Monitoreo proactivo",
+      "Respuesta rapida",
+      "SOC especializado"
+    ],
+    "tecnologias": ["Microsoft Defender", "Microsoft Sentinel", "Azure Monitor"],
+    "keywords": [
+      "soporte 24/7",
+      "SOC",
+      "monitoreo",
+      "Defender",
+      "Sentinel",
+      "incidentes",
+      "NOC",
+      "centro de operaciones",
+      "respuesta incidentes",
+      "24/7"
+    ],
+    "faq_examples": [
+      "Soporte 24/7?",
+      "Tienen SOC?",
+      "Monitoreo continuo?",
+      "Gestion de incidentes?",
+      "Respuesta ante incidentes?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [14, 15]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_cloud-data-computo-datos_f2a3b4c5d6e7",
+    "categoria": "Cloud & Data",
+    "nombre": "Cloud & Data: Computo y Datos en la Nube con Microsoft Azure",
+    "descripcion": "Modernizacion de infraestructura, administracion multi-hibrida, modelos de salud, AKS, Azure Monitor, Backup, Site Recovery, DevOps y GitHub.",
+    "problemas_que_resuelve": [
+      "Costos y variaciones impredecibles",
+      "Problemas de rendimiento",
+      "Dispersión de recursos",
+      "Backups incompletos",
+      "Riesgo de desastres"
+    ],
+    "incluye": [
+      "Modernizacion de infraestructura",
+      "Administracion multi-hibrida",
+      "Modelos de salud",
+      "AKS",
+      "Azure Monitor y Log Analytics",
+      "Backup",
+      "Site Recovery",
+      "DevOps y GitHub"
+    ],
+    "beneficios": [
+      "Optimizacion de costos",
+      "Alta disponibilidad",
+      "Recuperacion ante desastres",
+      "Modernizacion cloud"
+    ],
+    "tecnologias": ["Azure", "AKS", "Azure Monitor", "GitHub", "Backup", "Site Recovery"],
+    "keywords": [
+      "Azure",
+      "cloud",
+      "computo",
+      "datos",
+      "AKS",
+      "Backup",
+      "Site Recovery",
+      "DevOps",
+      "GitHub",
+      "modernizacion",
+      "multicloud",
+      "hibrido",
+      "migracion",
+      "gobierno"
+    ],
+    "faq_examples": [
+      "Migracion a Azure y gobierno?",
+      "Tienen servicios de Backup?",
+      "Site Recovery?",
+      "Administracion de AKS?",
+      "DevOps y GitHub?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [16, 17, 18]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_centralizacion-informacion-data_a3b4c5d6e7f8",
+    "categoria": "Cloud & Data",
+    "nombre": "Centralizacion de Informacion / Data",
+    "descripcion": "OneLake, Fabric, Data Factory, Synapse, SQL, Blob, Queue, Table para almacenamiento, analitica y gobierno de datos.",
+    "problemas_que_resuelve": [
+      "Datos dispersos en silos",
+      "Falta de analitica unificada",
+      "ETL manual complejo",
+      "Gobierno de datos fragmentado"
+    ],
+    "incluye": [
+      "Microsoft Fabric",
+      "OneLake",
+      "Data Factory",
+      "Synapse",
+      "SQL Azure",
+      "Blob Storage",
+      "Queue",
+      "Table Storage"
+    ],
+    "beneficios": [
+      "Datos centralizados",
+      "Analitica unificada",
+      "ETL automatizado",
+      "Gobierno de datos"
+    ],
+    "tecnologias": ["Microsoft Fabric", "OneLake", "Data Factory", "Synapse", "Azure SQL", "Blob"],
+    "keywords": [
+      "Fabric",
+      "OneLake",
+      "Data Factory",
+      "Synapse",
+      "datos",
+      "data lake",
+      "analitica",
+      "ETL",
+      "SQL",
+      "Blob",
+      "warehouse"
+    ],
+    "faq_examples": [
+      "Tienen solucion de datos centralizados?",
+      "Usan Microsoft Fabric?",
+      "Data Factory para ETL?",
+      "Synapse para analitica?",
+      "Gobierno de datos?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [18, 19]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_desarrollo-automatizacion_b4c5d6e7f8a9",
+    "categoria": "Desarrollo",
+    "nombre": "Desarrollo y Automatizacion",
+    "descripcion": "Automatizacion de procesos, integracion de sistemas, APIs, software a medida y soluciones cloud.",
+    "problemas_que_resuelve": [
+      "Procesos manuales repetitivos",
+      "Sistemas desconectados",
+      "Falta de APIs",
+      "Necesidad de software a medida"
+    ],
+    "incluye": [
+      "Automatizacion de procesos",
+      "Integracion de sistemas",
+      "Desarrollo de APIs",
+      "Software a medida",
+      "Soluciones cloud"
+    ],
+    "beneficios": [
+      "Eficiencia operativa",
+      "Integracion unificada",
+      "Soluciones a medida",
+      "Escalabilidad cloud"
+    ],
+    "tecnologias": ["Azure", "Power Apps", "Power Automate", "Logic Apps", "Python", ".NET"],
+    "keywords": [
+      "desarrollo",
+      "automatizacion",
+      "APIs",
+      "integracion",
+      "software a medida",
+      "Power Apps",
+      "Logic Apps",
+      "Power Automate",
+      "cloud",
+      "custom development"
+    ],
+    "faq_examples": [
+      "Desarrollan software a medida?",
+      "Integracion de sistemas?",
+      "Desarrollo de APIs?",
+      "Automatizacion de procesos?",
+      "Soluciones cloud?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [19, 20]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_servicios-administrados_c5d6e7f8a9b0",
+    "categoria": "Servicios Administrados",
+    "nombre": "Servicios Administrados (Managed Services)",
+    "descripcion": "Soporte 24/7, SLA, rituales operativos, indicadores, plan de mejora y reportes ejecutivos.",
+    "problemas_que_resuelve": [
+      "Falta de soporte continuo",
+      "SLA sin garantias",
+      "Operacion sin rituales",
+      "Falta de indicadores y mejora"
+    ],
+    "incluye": [
+      "Soporte 24/7",
+      "SLA definido",
+      "Rituales operativos",
+      "Indicadores y KPIs",
+      "Plan de mejora continua",
+      "Reportes ejecutivos"
+    ],
+    "beneficios": [
+      "Disponibilidad garantizada",
+      "Operacion predecible",
+      "Mejora continua",
+      "Visibilidad ejecutiva"
+    ],
+    "tecnologias": ["Azure", "Microsoft 365", "ITSM", "Monitoring"],
+    "keywords": [
+      "managed services",
+      "servicios administrados",
+      "SLA",
+      "soporte 24/7",
+      "rituales",
+      "KPIs",
+      "plan de mejora",
+      "reportes",
+      "operacion",
+      "MSP"
+    ],
+    "faq_examples": [
+      "Soporte 24/7?",
+      "Tienen SLA?",
+      "Rituales operativos?",
+      "Plan de mejora continua?",
+      "Reportes ejecutivos?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [20, 21]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_servicios-ia-managed-ai_d6e7f8a9b0c1",
+    "categoria": "IA",
+    "nombre": "Servicios de IA (Managed AI Services)",
+    "descripcion": "Operacion continua de agentes e IA, optimizacion de portafolio, reportes ejecutivos. Framework: DISCOVER, PLAN, BUILD, SECURE, OPERATE, EVOLVE.",
+    "problemas_que_resuelve": [
+      "Agentes de IA sin operacion continua",
+      "Portafolio de IA no optimizado",
+      "Falta de visibilidad de resultados",
+      "Ciclo de vida de IA incompleto"
+    ],
+    "incluye": [
+      "Operacion continua de agentes",
+      "IA operada",
+      "Optimizacion de portafolio",
+      "Reportes ejecutivos",
+      "Framework: DISCOVER, PLAN, BUILD, SECURE, OPERATE, EVOLVE"
+    ],
+    "beneficios": [
+      "IA operada 24/7",
+      "Optimizacion continua",
+      "Visibilidad ejecutiva",
+      "Ciclo de vida completo"
+    ],
+    "tecnologias": ["Azure OpenAI", "Azure AI", "Copilot", "Azure AI Foundry"],
+    "keywords": [
+      "IA",
+      "inteligencia artificial",
+      "agentes",
+      "Managed AI",
+      "operacion IA",
+      "Azure OpenAI",
+      "Copilot",
+      "AI Foundry",
+      "optimizacion",
+      "reportes ejecutivos"
+    ],
+    "faq_examples": [
+      "Que servicios de IA operan agentes?",
+      "Tienen Managed AI?",
+      "Operacion de agentes de IA?",
+      "Optimizacion de portafolio IA?",
+      "Framework para implementar IA?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [21, 22, 23]},
+    "version": "2026.1"
+  },
+  {
+    "id": "servicio_csp-cloud-solution-provider_e7f8a9b0c1d2",
+    "categoria": "CSP",
+    "nombre": "CSP (Cloud Solution Provider)",
+    "descripcion": "Licenciamiento flexible para Azure y Microsoft 365, asesoria, consultoria, capacitacion y soporte ITIL.",
+    "problemas_que_resuelve": [
+      "Licenciamiento complejo",
+      "Falta de asesoria",
+      "Capacitacion insuficiente",
+      "Soporte sin procesos ITIL"
+    ],
+    "incluye": [
+      "Licenciamiento flexible",
+      "Azure",
+      "Microsoft 365",
+      "Asesoria",
+      "Consultoria",
+      "Capacitacion",
+      "Soporte ITIL"
+    ],
+    "beneficios": [
+      "Licencias optimizadas",
+      "Asesoria especializada",
+      "Capacitacion continua",
+      "Soporte estructurado"
+    ],
+    "tecnologias": ["Azure", "Microsoft 365", "CSP", "Microsoft Partner Center"],
+    "keywords": [
+      "CSP",
+      "Cloud Solution Provider",
+      "licenciamiento",
+      "Azure",
+      "Microsoft 365",
+      "asesoria",
+      "consultoria",
+      "capacitacion",
+      "ITIL",
+      "soporte",
+      "licencias"
+    ],
+    "faq_examples": [
+      "Que es CSP?",
+      "Licenciamiento de Azure?",
+      "Asesoria para Microsoft 365?",
+      "Capacitacion incluida?",
+      "Soporte ITIL?"
+    ],
+    "source": {"document": "Servicios Opti (1) (1).pdf", "pages": [23, 24]},
+    "version": "2026.1"
+  }
+]

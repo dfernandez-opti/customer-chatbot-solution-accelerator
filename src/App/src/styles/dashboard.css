@@ -1,0 +1,33 @@
+/* OPTI Security Operations Dashboard - dark theme */
+.dashboard-root {
+  --dash-bg: #0a0d12;
+  --dash-surface: #111520;
+  --dash-surface2: #161c2a;
+  --dash-border: rgba(255, 255, 255, 0.06);
+  --dash-text: #e2e8f0;
+  --dash-text-muted: #64748b;
+  --dash-text-dim: #94a3b8;
+  --dash-blue: #63b3ed;
+  --dash-blue-glow: rgba(99, 179, 237, 0.15);
+  --dash-red: #fc8181;
+  --dash-red-glow: rgba(252, 129, 129, 0.12);
+  --dash-orange: #f6ad55;
+  --dash-orange-glow: rgba(246, 173, 85, 0.12);
+  --dash-green: #68d391;
+  --dash-green-glow: rgba(104, 211, 145, 0.12);
+  --dash-purple: #b794f4;
+  font-family: 'IBM Plex Sans', 'Inter', sans-serif;
+}
+
+.dashboard-root .font-mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+@keyframes dash-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.dashboard-root .logo-dot {
+  animation: dash-pulse 2s infinite;
+}

@@ -84,7 +84,7 @@ def search_reference(query: str, top: int = 5) -> List[Dict[str, Any]]:
                 top=top,
                 query_type="semantic",
                 semantic_configuration_name="default",
-                query_language="en-us",
+                query_language="es-es",
                 speller="lexicon",
                 query_answer="extractive|count-3",
                 query_caption="extractive|highlight-true",
@@ -135,10 +135,11 @@ def search_reference_enhanced(
 
         # Try multiple search strategies
         search_strategies = [
-            # Strategy 1: Semantic search with answers
+            # Strategy 1: Semantic search with answers (Spanish)
             {
                 "query_type": "semantic",
                 "semantic_configuration_name": "default",
+                "query_language": "es-es",
                 "query_answer": "extractive|count-3",
                 "query_caption": "extractive|highlight-true",
             },
@@ -211,10 +212,11 @@ def search_products(
 
         # Try multiple search strategies for products
         search_strategies = [
-            # Strategy 1: Try semantic search first (if available)
+            # Strategy 1: Semantic search (Spanish for OPTI)
             {
                 "query_type": "semantic",
                 "semantic_configuration_name": "default",
+                "query_language": "es-es",
                 "query_answer": "extractive|count-3",
                 "query_caption": "extractive|highlight-true",
             },

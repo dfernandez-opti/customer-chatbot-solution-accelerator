@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingCart, Star } from '@phosphor-icons/react';
+import { Star } from '@phosphor-icons/react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -7,16 +7,17 @@ import { Product } from '@/lib/types';
 
 interface ProductRecommendationProps {
   product: Product;
-  onAddToCart: (product: Product) => void;
+  onRequestQuote?: (product: Product) => void;
   compact?: boolean;
 }
 
 export const ProductRecommendation: React.FC<ProductRecommendationProps> = ({
   product,
-  onAddToCart,
+  onRequestQuote,
   compact = false
 }) => {
-  const hasDiscount = product.originalPrice && product.originalPrice > product.price;
+  const isService = product.isService === true;
+  const hasDiscount = !isService && product.originalPrice && product.originalPrice > product.price;
   const discountPercent = hasDiscount 
     ? Math.round(((product.originalPrice! - product.price) / product.originalPrice!) * 100)
     : 0;
@@ -34,7 +35,9 @@ export const ProductRecommendation: React.FC<ProductRecommendationProps> = ({
         <div className="flex-1 min-w-0">
           <h4 className="font-medium text-sm truncate">{product.title}</h4>
           <div className="flex items-center gap-2 mt-1">
-            <span className="font-semibold text-sm">${product.price}</span>
+            <span className="font-semibold text-sm">
+              {isService || product.price === 0 ? 'Solicitar cotización' : `$${product.price}`}
+            </span>
             {hasDiscount && (
               <span className="text-xs text-muted-foreground line-through">
                 ${product.originalPrice}
@@ -44,12 +47,10 @@ export const ProductRecommendation: React.FC<ProductRecommendationProps> = ({
         </div>
         <Button
           size="sm"
-          onClick={() => onAddToCart(product)}
-          disabled={!product.inStock}
+          onClick={() => onRequestQuote?.(product)}
           className="flex-shrink-0"
         >
-          <ShoppingCart className="w-4 h-4 mr-1" />
-          Add
+          Solicitar cotización
         </Button>
       </div>
     );
@@ -64,7 +65,7 @@ export const ProductRecommendation: React.FC<ProductRecommendationProps> = ({
           className="h-full w-full object-cover"
           loading="lazy"
         />
-        {hasDiscount && (
+        {hasDiscount && !isService && (
           <Badge 
             variant="destructive" 
             className="absolute left-2 top-2 px-2 py-1 text-xs font-semibold"
@@ -91,20 +92,22 @@ export const ProductRecommendation: React.FC<ProductRecommendationProps> = ({
           </p>
         </div>
 
-        <div className="flex items-center gap-1 mb-3">
-          <div className="flex items-center gap-1">
-            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-            <span className="text-sm font-medium">{product.rating}</span>
+        {!isService && (
+          <div className="flex items-center gap-1 mb-3">
+            <div className="flex items-center gap-1">
+              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+              <span className="text-sm font-medium">{product.rating}</span>
+            </div>
+            <span className="text-sm text-muted-foreground">
+              ({product.reviewCount} reviews)
+            </span>
           </div>
-          <span className="text-sm text-muted-foreground">
-            ({product.reviewCount} reviews)
-          </span>
-        </div>
+        )}
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="font-semibold text-lg text-foreground">
-              ${product.price}
+              {isService || product.price === 0 ? 'Solicitar cotización' : `$${product.price}`}
             </span>
             {hasDiscount && (
               <span className="text-sm text-muted-foreground line-through">
@@ -115,12 +118,10 @@ export const ProductRecommendation: React.FC<ProductRecommendationProps> = ({
           
           <Button
             size="sm"
-            onClick={() => onAddToCart(product)}
-            disabled={!product.inStock}
+            onClick={() => onRequestQuote?.(product)}
             className="gap-2"
           >
-            <ShoppingCart className="w-4 h-4" />
-            Add
+            Solicitar cotización
           </Button>
         </div>
       </CardContent>

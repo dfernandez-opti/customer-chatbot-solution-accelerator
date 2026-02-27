@@ -30,7 +30,7 @@ param location string
   azd:{
     type: 'location'
     usageName: [
-      'OpenAI.GlobalStandard.gpt-4o-mini,150'
+      'OpenAI.GlobalStandard.gpt-4o,10'
     ]
   }
 })
@@ -42,10 +42,10 @@ param secondaryCosmosLocation string = 'canadacentral'
 
 @minLength(1)
 @description('Optional. Name of the GPT model to deploy:')
-param gptModelName string = 'gpt-4o-mini'
+param gptModelName string = 'gpt-4o'
 
-@description('Optional. Version of the GPT model to deploy. Defaults to 2024-07-18.')
-param gptModelVersion string = '2024-07-18'
+@description('Optional. Version of the GPT model to deploy. Defaults to 2024-08-06 for gpt-4o.')
+param gptModelVersion string = '2024-08-06'
 
 @description('Optional. Version of the OpenAI.')
 param azureOpenAIApiVersion string = '2025-01-01-preview'

@@ -53,7 +53,7 @@
     },
     "gptModelName": {
       "type": "string",
-      "defaultValue": "gpt-4o-mini",
+      "defaultValue": "gpt-4o",
       "metadata": {
         "description": "Name of the GPT model to deploy:"
       }
@@ -114,7 +114,7 @@
         "azd": {
           "type": "location",
           "usageName": [
-            "OpenAI.GlobalStandard.gpt-4o-mini,150"
+            "OpenAI.GlobalStandard.gpt-4o,10"
           ]
         },
         "description": "Location for AI Foundry deployment. This is the location where the AI Foundry resources will be deployed."

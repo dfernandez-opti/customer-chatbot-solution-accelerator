@@ -7,13 +7,13 @@ import { FigmaProductCard } from './FigmaProductCard';
 interface ProductGridProps {
   products: Product[];
   isLoading: boolean;
-  onAddToCart: (product: Product) => void;
+  onRequestQuote?: (product: Product) => void;
 }
 
 export const ProductGrid: React.FC<ProductGridProps> = ({
   products,
   isLoading,
-  onAddToCart
+  onRequestQuote
 }) => {
   if (isLoading) {
     return <FigmaProductGridSkeleton count={12}/>;
@@ -23,21 +23,21 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     return (
       <div className="flex flex-col items-center justify-center h-64 text-center">
         <List className="w-16 h-16 text-muted-foreground mb-4" />
-        <h3 className="text-lg font-medium mb-2">No products found</h3>
+        <h3 className="text-lg font-medium mb-2">No se encontraron servicios</h3>
         <p className="text-muted-foreground">
-          Try adjusting your search or filters
+          Intenta ajustar tu búsqueda o filtros
         </p>
       </div>
     );
   }
 
   return (
-    <div className="product-grid pb-6">
+    <div className="product-grid pb-20">
       {products.map((product) => (
         <FigmaProductCard
           key={product.id}
           product={product}
-          onAddToCart={onAddToCart}
+          onRequestQuote={onRequestQuote}
         />
       ))}
     </div>

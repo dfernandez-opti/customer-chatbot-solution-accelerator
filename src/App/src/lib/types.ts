@@ -9,6 +9,8 @@ export interface Product {
   category: string;
   inStock: boolean;
   description?: string;
+  /** True for services - no price displayed, shows "Cotizar" instead of Add to cart */
+  isService?: boolean;
 }
 
 export interface Order {

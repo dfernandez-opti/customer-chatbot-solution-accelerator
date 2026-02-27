@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import List, Optional
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings
 
 # Get the absolute path to the .env file
@@ -18,8 +19,8 @@ class Settings(BaseSettings):
     host: str = "0.0.0.0"
     port: int = 8000
 
-    # CORS - Use string type to avoid JSON parsing issues
-    allowed_origins_str: str = "http://localhost:5173,http://localhost:3000"
+    # CORS - Use string type to avoid JSON parsing issues (incl. 5174 when 5173 is in use)
+    allowed_origins_str: str = "http://localhost:5173,http://localhost:5174,http://localhost:5175,http://localhost:3000,http://127.0.0.1:5173,http://127.0.0.1:5174"
 
     @property
     def allowed_origins(self) -> List[str]:
@@ -44,7 +45,7 @@ class Settings(BaseSettings):
     # Azure OpenAI
     azure_openai_endpoint: Optional[str] = None
     azure_openai_api_version: str = "2025-01-01-preview"
-    azure_openai_deployment_name: str = "gpt-4o-mini"
+    azure_openai_deployment_name: str = "gpt-4o"
 
     # Azure Key Vault
     azure_key_vault_url: Optional[str] = None
@@ -72,6 +73,21 @@ class Settings(BaseSettings):
 
     # Feature Flags
     use_foundry_agents: bool = False
+
+    # Azure Content Safety (moderación de contenido - alertas por solicitudes indebidas)
+    content_safety_endpoint: Optional[str] = None
+    content_safety_key: Optional[str] = None
+    content_safety_enabled: bool = False
+
+    @field_validator("content_safety_enabled", mode="before")
+    @classmethod
+    def parse_content_safety_enabled(cls, v):
+        """Aceptar 'true', '1', 'yes' desde variables de entorno (Azure env vars son strings)"""
+        if isinstance(v, bool):
+            return v
+        if isinstance(v, str) and v.lower() in ("true", "1", "yes", "on"):
+            return True
+        return False
 
     class Config:
         env_file = str(_env_file_path)  # Use absolute path to .env file
@@ -125,4 +141,13 @@ def has_foundry_config() -> bool:
         settings.foundry_chat_agent != ""
         or settings.foundry_product_agent != ""
         or settings.foundry_policy_agent != ""
+    )
+
+
+# Check if Azure Content Safety is configured (moderación de contenido)
+def has_content_safety_config() -> bool:
+    return (
+        settings.content_safety_enabled
+        and settings.content_safety_endpoint is not None
+        and settings.content_safety_key is not None
     )

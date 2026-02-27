@@ -63,7 +63,7 @@ jobs:
       - name: Build and Push Docker Image for WebApp
         uses: docker/build-push-action@v6
         with:
-          context: ./src/App
+          context: .
           file: ./src/App/Dockerfile
           push: ${{ github.ref_name == 'main' || github.ref_name == 'dev' || github.ref_name == 'demo' || github.ref_name == 'dependabotchanges' }}
           tags: |

@@ -6,3 +6,20 @@ metadata:
 # AVM Deployment Configuration
 infra:
   path: infra
+
+# Servicios para que azd construya y suba imágenes Docker al ejecutar azd up
+services:
+  web:
+    project: ./src/App
+    language: ts
+    host: appservice
+    docker:
+      path: ./src/App/Dockerfile
+      context: .
+  api:
+    project: ./src/api
+    language: py
+    host: appservice
+    docker:
+      path: ./src/api/Dockerfile
+      context: ./src/api

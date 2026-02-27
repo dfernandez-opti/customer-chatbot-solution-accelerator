@@ -62,7 +62,7 @@
         "azd": {
           "type": "location",
           "usageName": [
-            "OpenAI.GlobalStandard.gpt-4o-mini,50"
+            "OpenAI.GlobalStandard.gpt-4o,10"
           ]
         },
         "description": "Required. Location for all AI service resources. This should be one of the supported Azure AI Service locations."
@@ -77,7 +77,7 @@
     },
     "gptModelName": {
       "type": "string",
-      "defaultValue": "gpt-4o-mini",
+      "defaultValue": "gpt-4o",
       "minLength": 1,
       "metadata": {
         "description": "Optional. Name of the GPT model to deploy:"
@@ -85,9 +85,9 @@
     },
     "gptModelVersion": {
       "type": "string",
-      "defaultValue": "2024-07-18",
+      "defaultValue": "2024-08-06",
       "metadata": {
-        "description": "Optional. Version of the GPT model to deploy. Defaults to 2024-07-18."
+        "description": "Optional. Version of the GPT model to deploy. Defaults to 2024-08-06 for gpt-4o."
       }
     },
     "azureOpenAIApiVersion": {
@@ -118,9 +118,9 @@
     },
     "gptModelCapacity": {
       "type": "int",
-      "defaultValue": 50,
+      "defaultValue": 10,
       "metadata": {
-        "description": "Optional. AI model deployment token capacity. Defaults to 50 for optimal performance with multi-agent architecture."
+        "description": "Optional. AI model deployment token capacity. Defaults to 10 (min for quota). Increase to 50+ when quota allows."
       }
     },
     "embeddingModel": {

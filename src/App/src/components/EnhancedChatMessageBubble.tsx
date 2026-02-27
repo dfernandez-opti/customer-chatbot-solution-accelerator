@@ -11,13 +11,13 @@ import { ProductRecommendation } from './ProductRecommendation';
 interface EnhancedChatMessageBubbleProps {
   message: ChatMessage;
   isTyping?: boolean;
-  onAddToCart?: (product: Product) => void;
+  onRequestQuote?: (product: Product) => void;
 }
 
 export const EnhancedChatMessageBubble = memo(({ 
   message, 
   isTyping, 
-  onAddToCart 
+  onRequestQuote 
 }: EnhancedChatMessageBubbleProps) => {
   const isUser = message.sender === 'user';
   const isAssistant = message.sender === 'assistant';
@@ -71,7 +71,7 @@ export const EnhancedChatMessageBubble = memo(({
             <ChatProductCard
               key={product.id}
               product={product}
-              onAddToCart={onAddToCart}
+              onRequestQuote={onRequestQuote}
             />
           ))}
           {parsedProductsData.outroText && (
@@ -84,7 +84,7 @@ export const EnhancedChatMessageBubble = memo(({
     }
 
     // Fallback to existing product recommendations
-    if (hasProductRecommendations && onAddToCart) {
+    if (hasProductRecommendations && onRequestQuote) {
       return (
         <div className="space-y-2">
           <p className="whitespace-pre-wrap">
@@ -95,7 +95,7 @@ export const EnhancedChatMessageBubble = memo(({
               <ProductRecommendation
                 key={product.id}
                 product={product}
-                onAddToCart={onAddToCart}
+                onRequestQuote={onRequestQuote}
                 compact={true}
               />
             ))}

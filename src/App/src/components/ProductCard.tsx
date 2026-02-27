@@ -11,7 +11,8 @@ interface ProductCardProps {
 }
 
 export const ProductCard = memo(({ product, onAddToCart }: ProductCardProps) => {
-  const hasDiscount = product.originalPrice && product.originalPrice > product.price;
+  const isService = product.isService === true;
+  const hasDiscount = !isService && product.originalPrice && product.originalPrice > product.price;
   const discountPercent = hasDiscount 
     ? Math.round(((product.originalPrice! - product.price) / product.originalPrice!) * 100)
     : 0;
@@ -55,27 +56,37 @@ export const ProductCard = memo(({ product, onAddToCart }: ProductCardProps) => 
           </p>
         </div>
 
-        {/* Rating */}
-        <div className="flex items-center gap-1.5">
-          <div className="flex items-center gap-1">
-            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 drop-shadow-sm" />
-            <span className="text-sm font-semibold text-foreground">{product.rating}</span>
+        {/* Rating - oculto para servicios */}
+        {!isService && (
+          <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1">
+              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 drop-shadow-sm" />
+              <span className="text-sm font-semibold text-foreground">{product.rating}</span>
+            </div>
+            <span className="text-xs text-muted-foreground">
+              ({product.reviewCount})
+            </span>
           </div>
-          <span className="text-xs text-muted-foreground">
-            ({product.reviewCount})
-          </span>
-        </div>
+        )}
 
-        {/* Price and Button */}
+        {/* Precio/Cotizar y Botón */}
         <div className="flex items-center justify-between pt-1">
           <div className="flex flex-col gap-0.5">
-            <span className="font-bold text-xl text-foreground">
-              ${product.price.toFixed(2)}
-            </span>
-            {hasDiscount && (
-              <span className="text-xs text-muted-foreground line-through">
-                ${product.originalPrice!.toFixed(2)}
+            {isService ? (
+              <span className="font-medium text-base text-muted-foreground">
+                Solicitar cotización
               </span>
+            ) : (
+              <>
+                <span className="font-bold text-xl text-foreground">
+                  ${product.price.toFixed(2)}
+                </span>
+                {hasDiscount && (
+                  <span className="text-xs text-muted-foreground line-through">
+                    ${product.originalPrice!.toFixed(2)}
+                  </span>
+                )}
+              </>
             )}
           </div>
           
@@ -85,8 +96,16 @@ export const ProductCard = memo(({ product, onAddToCart }: ProductCardProps) => 
             disabled={!product.inStock}
             className="gap-2 transition-all duration-300 hover:gap-3 hover:shadow-md shadow-sm"
           >
-            <ShoppingCart className="w-4 h-4" />
-            <span className="font-medium">Add</span>
+            {isService ? (
+              <>
+                <span className="font-medium">Cotizar</span>
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="w-4 h-4" />
+                <span className="font-medium">Add</span>
+              </>
+            )}
           </Button>
         </div>
       </CardContent>

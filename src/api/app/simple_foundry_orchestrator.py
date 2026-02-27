@@ -346,47 +346,44 @@ class SimpleFoundryOrchestrator:
         """Enhanced agent selection with semantic understanding"""
         query_lower = user_text.lower()
 
-        # Product-related keywords and patterns
+        # Product/service-related keywords (Spanish + English)
         product_patterns = [
-            r"\b(paint|color|blue|red|green|white|black|shade|tone|finish)\b",
-            r"\b(product|item|buy|purchase|price|cost)\b",
-            r"\b(what.*offer|show.*product|find.*paint)\b",
-            r"\b(match.*color|color.*match|sample)\b",
-            r"\b(recommend|suggest|help.*choose)\b",
-            r"\b(interior|exterior|primer|coating)\b",
+            r"\b(servicio|servicios|producto|productos)\b",
+            r"\b(ciberseguridad|seguridad|sec|seg|itsm|ia|bre|csp|cloud|datos)\b",
+            r"\b(qué.*ofrecen|qué.*ofreces|busco|necesito|información.*sobre)\b",
+            r"\b(cotización|cotizar|precio|coste)\b",
+            r"\b(recomendar|sugerir|ayuda.*elegir)\b",
+            r"\b(paint|color|product|buy|purchase|price)\b",
         ]
 
-        # Policy/support keywords and patterns
+        # Policy/support keywords (Spanish + English)
         policy_patterns = [
-            r"\b(return|refund|exchange|policy|warranty)\b",
-            r"\b(problem|issue|complaint|damaged|leaking)\b",
-            r"\b(ship|delivery|shipping|track)\b",
-            r"\b(help|support|contact|customer service)\b",
-            r"\b(guarantee|coverage|defect)\b",
+            r"\b(devolución|reembolso|política|garantía)\b",
+            r"\b(problema|incidencia|queja|dañado)\b",
+            r"\b(envío|entrega|seguimiento)\b",
+            r"\b(ayuda|soporte|contacto|atención)\b",
+            r"\b(return|refund|policy|warranty|damaged)\b",
             r"\b(cancel|order.*status|tracking)\b",
         ]
 
-        # Check for product intent
         product_score = sum(
             1 for pattern in product_patterns if re.search(pattern, query_lower)
         )
-
-        # Check for policy intent
         policy_score = sum(
             1 for pattern in policy_patterns if re.search(pattern, query_lower)
         )
 
-        # Special cases
+        # Special cases - Spanish
         if any(
             phrase in query_lower
-            for phrase in ["what products", "what do you offer", "show me products"]
+            for phrase in ["qué servicios", "qué ofrecen", "qué productos", "what products", "what do you offer", "show me products"]
         ):
             logger.info("Routing to ProductLookupAgent - general product inquiry")
             return "ProductLookupAgent"
 
         if any(
             phrase in query_lower
-            for phrase in ["return policy", "warranty", "refund", "damaged"]
+            for phrase in ["política de devolución", "garantía", "reembolso", "return policy", "warranty", "refund", "damaged"]
         ):
             logger.info("Routing to KnowledgeAgent - policy inquiry")
             return "KnowledgeAgent"

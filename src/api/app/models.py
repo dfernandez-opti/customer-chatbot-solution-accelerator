@@ -60,6 +60,7 @@ class Product(BaseEntity):
     description: Optional[str] = None
     tags: List[str] = []
     specifications: Dict[str, Any] = {}
+    is_service: bool = False
 
 
 class ProductCreate(BaseModel):
@@ -74,6 +75,7 @@ class ProductCreate(BaseModel):
     description: Optional[str] = None
     tags: List[str] = []
     specifications: Dict[str, Any] = {}
+    is_service: bool = False
 
 
 class ProductUpdate(BaseModel):
@@ -88,6 +90,7 @@ class ProductUpdate(BaseModel):
     description: Optional[str] = None
     tags: Optional[List[str]] = None
     specifications: Optional[Dict[str, Any]] = None
+    is_service: Optional[bool] = None
 
 
 # User Models
@@ -270,3 +273,21 @@ class ChatSearch(BaseModel):
     end_date: Optional[datetime] = None
     page: int = Field(ge=1, default=1)
     page_size: int = Field(ge=1, le=100, default=20)
+
+
+# Security Event (Secure GenAI Demo)
+class SecurityEventCreate(BaseModel):
+    session_id: str
+    user_id: Optional[str] = None
+    ip: Optional[str] = None
+    attack_type: str
+    severity: str
+    action: str = "blocked"
+    prompt_hash: str
+    prompt_snippet: str
+    model_name: Optional[str] = None
+    route: str = "/api/chat/message"
+    correlation_id: str
+    evidence: Dict[str, Any] = {}
+    raw_prompt_stored: bool = False
+    export_status: str = "pending"

@@ -19,7 +19,8 @@ export const CartDrawer = ({ cartItems, onUpdateQuantity, onRemoveItem, onChecko
   // Ensure cartItems is always an array
   const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
   const totalItems = safeCartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = safeCartItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+  const totalPrice = safeCartItems.reduce((sum, item) => sum + ((item.product.isService ? 0 : item.product.price) * item.quantity), 0);
+  const hasPricedItems = safeCartItems.some(item => !item.product.isService);
 
   const CartContent = () => (
     <div className="flex flex-col h-full">
@@ -27,8 +28,8 @@ export const CartDrawer = ({ cartItems, onUpdateQuantity, onRemoveItem, onChecko
         {safeCartItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-40 text-center">
             <ShoppingCart className="w-12 h-12 text-muted-foreground mb-4" />
-            <p className="text-muted-foreground">Your cart is empty</p>
-            <p className="text-sm text-muted-foreground">Add some products to get started</p>
+            <p className="text-muted-foreground">Tu carrito está vacío</p>
+            <p className="text-sm text-muted-foreground">Agrega servicios para solicitar cotización</p>
           </div>
         ) : (
           <ScrollArea className="h-full">
@@ -48,7 +49,7 @@ export const CartDrawer = ({ cartItems, onUpdateQuantity, onRemoveItem, onChecko
                         </h4>
                         <div className="flex items-center justify-between">
                           <span className="font-semibold text-primary">
-                            ${item.product.price}
+                            {item.product.isService ? 'Cotizar' : `$${item.product.price}`}
                           </span>
                           <div className="flex items-center gap-2">
                             <div className="flex items-center border rounded-lg">
@@ -95,13 +96,15 @@ export const CartDrawer = ({ cartItems, onUpdateQuantity, onRemoveItem, onChecko
       {cartItems.length > 0 && (
         <div className="border-t p-4 space-y-4">
           <div className="flex justify-between items-center">
-            <span className="font-semibold">Total: ${totalPrice.toFixed(2)}</span>
+            <span className="font-semibold">
+              {hasPricedItems ? `Total: $${totalPrice.toFixed(2)}` : `${totalItems} solicitud${totalItems !== 1 ? 'es' : ''} de cotización`}
+            </span>
             <span className="text-sm text-muted-foreground">
               {totalItems} item{totalItems !== 1 ? 's' : ''}
             </span>
           </div>
           <Button className="w-full" size="lg" onClick={onCheckout}>
-            Proceed to Checkout
+            {hasPricedItems ? 'Proceed to Checkout' : 'Enviar solicitudes'}
           </Button>
         </div>
       )}
@@ -132,7 +135,7 @@ export const CartDrawer = ({ cartItems, onUpdateQuantity, onRemoveItem, onChecko
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
             <ShoppingCart className="w-5 h-5" />
-            Shopping Cart
+            Carrito
           </SheetTitle>
         </SheetHeader>
         <div className="mt-6 h-[calc(100vh-8rem)]">

@@ -6,42 +6,42 @@ import {
   themeToTokensObject
 } from '@fluentui/react-components';
 
-// Brand colors matching the Figma design
-const coralBrand: BrandVariants = {
-  10: "#020305",
-  20: "#111318",
-  30: "#16202D",
-  40: "#1B2C42",
-  50: "#213A57",
-  60: "#26486C",
-  70: "#2B5681",
-  80: "#306496",
-  90: "#3572AB",
-  100: "#3A80C0",
-  110: "#4F8BC4",
-  120: "#6496C8",
-  130: "#79A1CC",
-  140: "#8EACD0",
-  150: "#A3B7D4",
-  160: "#B8C2D8"
+// Brand colors from OPTI logo - vibrant orange, blue-grey, and accent grey
+const optiBrand: BrandVariants = {
+  10: "#1a0d08",
+  20: "#2d150c",
+  30: "#4a1f10",
+  40: "#672914",
+  50: "#843318",
+  60: "#a13d1c",
+  70: "#be4720",
+  80: "#db5124",
+  90: "#E85D2C",
+  100: "#E85D2C",
+  110: "#EB6F42",
+  120: "#EE8158",
+  130: "#F1936E",
+  140: "#F4A584",
+  150: "#F7B79A",
+  160: "#FAC9B0"
 };
 
 // Create light theme
 export const coralLightTheme: Theme = {
-  ...createLightTheme(coralBrand),
+  ...createLightTheme(optiBrand),
 };
 
-// Create dark theme with custom overrides for the Figma design
+// Create dark theme with OPTI branding
 export const coralDarkTheme: Theme = {
-  ...createDarkTheme(coralBrand),
-  // Override specific colors to match Figma dark theme
+  ...createDarkTheme(optiBrand),
+  // Override specific colors for OPTI dark theme
   colorNeutralBackground1: "#1a1a1a",
   colorNeutralBackground2: "#262626",
   colorNeutralBackground3: "#333333",
   colorNeutralForeground1: "#ffffff",
   colorNeutralForeground2: "#e6e6e6",
   colorNeutralForeground3: "#cccccc",
-  colorBrandBackground: "#3A80C0",
+  colorBrandBackground: "#E85D2C",
   colorBrandForeground1: "#ffffff",
   colorBrandForeground2: "#e6e6e6",
 };

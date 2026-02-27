@@ -76,12 +76,13 @@ def normalize_row(row: Dict[str, Any]) -> Dict[str, Any]:
     if not item["id"]:
         raise ValueError("Each item must have a unique 'id' or 'productId'.")
 
-    # Cast Price to float
-    if "Price" in item and item["Price"] != "":
-        try:
-            item["Price"] = float(item["Price"])
-        except ValueError:
-            pass  # Keep original value if conversion fails
+    # Cast price/Price to float
+    for price_key in ("price", "Price"):
+        if price_key in item and item[price_key] != "":
+            try:
+                item[price_key] = float(item[price_key])
+            except (ValueError, TypeError):
+                pass  # Keep original value if conversion fails
     return item
 
 

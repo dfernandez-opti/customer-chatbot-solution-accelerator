@@ -3,15 +3,21 @@ import { Product } from '@/lib/types';
 
 interface ChatProductCardProps {
   product: Product;
-  onAddToCart?: (product: Product) => void;
+  onRequestQuote?: (product: Product) => void;
 }
 
 export const ChatProductCard: React.FC<ChatProductCardProps> = ({
   product,
-  onAddToCart
+  onRequestQuote
 }) => {
   return (
-    <div className="flex gap-4 p-4 bg-card border rounded-lg hover:shadow-md transition-shadow">
+    <div 
+      className="flex gap-4 p-4 bg-card border rounded-lg hover:shadow-md transition-shadow cursor-pointer"
+      onClick={() => onRequestQuote?.(product)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && onRequestQuote?.(product)}
+    >
       <div className="w-24 h-24 flex-shrink-0 rounded overflow-hidden bg-muted">
         <img
           src={product.image}
@@ -35,7 +41,7 @@ export const ChatProductCard: React.FC<ChatProductCardProps> = ({
           </p>
         </div>
         <div className="text-sm font-medium text-foreground mt-2">
-          ${product.price.toFixed(2)} USD
+          {product.isService || product.price === 0 ? 'Solicitar cotización' : `$${product.price.toFixed(2)} USD`}
         </div>
       </div>
     </div>

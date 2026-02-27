@@ -5,38 +5,37 @@ import { Product } from '@/lib/types';
 
 interface MainContentProps {
   children?: React.ReactNode;
-  // Product-related props
   products?: Product[];
   isLoading?: boolean;
-  onAddToCart?: (product: Product) => void;
+  onRequestQuote?: (product: Product) => void;
 }
 
 export const MainContent: React.FC<MainContentProps> = ({
   children,
   products = [],
   isLoading = false,
-  onAddToCart
+  onRequestQuote
 }) => {
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col min-h-0">
       {/* Products Header - Products title and result count */}
       <div className="p-4 pt-6">
         <div className="flex items-center justify-between">
-          <Text size={500} weight="semibold">Products</Text>
+          <Text size={500} weight="semibold">Nuestros Servicios</Text>
           <Text size={300} className="text-muted-foreground">
-            Showing {products.length} results
+            Mostrando {products.length} servicios
           </Text>
         </div>
       </div>
       
-      {/* Products Content */}
-      <div className="flex-1 overflow-y-auto p-4 pt-0">
-        <div className="max-w-full">
+      {/* Products Content - padding extra abajo para ver última fila de cards */}
+      <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-4 pt-0 pb-16">
+        <div className="max-w-full pb-16">
           {children || (
             <ProductGrid
               products={products}
               isLoading={isLoading}
-              onAddToCart={onAddToCart || (() => {})}
+              onRequestQuote={onRequestQuote}
             />
           )}
         </div>

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "kill": "fuser -k 5000/tcp",
-    "build": "tsc -b --noCheck && vite build",
+    "prebuild": "node copy-logo.js",
+    "build": "npm run prebuild && tsc -b --noCheck && vite build",
     "lint": "eslint .",
     "optimize": "vite optimize",
     "preview": "vite preview"

@@ -32,62 +32,35 @@ async def create_assistants():
             {
                 "name": "Orchestrator Agent",
                 "description": "Main orchestrator that routes customer inquiries to specialized agents for product searches, order tracking, and policy questions.",
-                "instructions": """You are the main orchestrator for Contoso Paints e-commerce customer service. Your role is to:
+                "instructions": """Eres el orquestador principal del servicio al cliente de OPTI - tecnologías que dan valor. Responde SIEMPRE en español.
 
-1. Analyze customer inquiries and route them to appropriate specialists
-2. Handle general questions and greetings
-3. Provide comprehensive assistance using available tools
-4. Maintain a helpful, professional tone
+1. Analiza las consultas y enrútalas al especialista adecuado
+2. Atiende preguntas generales y saludos
+3. Proporciona asistencia completa usando las herramientas disponibles
+4. Mantén un tono profesional y amable
 
-You have access to tools for:
-- Product search and recommendations
-- Order tracking and management
-- Policy and FAQ information
-
-Always aim to provide accurate, helpful responses while maintaining excellent customer service.""",
-                "model": "gpt-4o-mini",
+Tienes herramientas para: búsqueda de servicios, seguimiento de pedidos, políticas y FAQ.""",
+                "model": "gpt-4o",
             },
             {
                 "name": "Product Lookup Agent",
                 "description": "Specialized agent for product searches, recommendations, and catalog inquiries.",
-                "instructions": """You are a product specialist for Contoso Paints e-commerce. Your expertise includes:
+                "instructions": """Eres un especialista en servicios de OPTI. Responde SIEMPRE en español.
 
-1. Product search and discovery
-2. Product recommendations based on customer needs
-3. Pricing and availability information
-4. Product specifications and details
-5. Category browsing and filtering
-
-Always help customers find the right products for their needs. Use the product search tools to provide accurate, up-to-date information.""",
-                "model": "gpt-4o-mini",
+Tu expertise incluye: búsqueda de servicios (SEC, ITSM, IA, BRE, CSP, Cloud and Data, ADM, SEG), recomendaciones, cotizaciones, descripciones y categorías. Usa las herramientas de búsqueda para dar información precisa.""",
+                "model": "gpt-4o",
             },
             {
                 "name": "Order Status Agent",
                 "description": "Specialized agent for order tracking, status updates, and order management.",
-                "instructions": """You are an order specialist for Contoso Paints e-commerce. You help customers with:
-
-1. Order status and tracking
-2. Order history and details
-3. Return and refund requests
-4. Shipping information
-5. Order modifications when possible
-
-Always provide accurate order information and help resolve any order-related concerns professionally.""",
-                "model": "gpt-4o-mini",
+                "instructions": """Eres un especialista en pedidos de OPTI. Responde SIEMPRE en español. Ayudas con estado de pedidos, historial, reembolsos, envíos y modificaciones.""",
+                "model": "gpt-4o",
             },
             {
                 "name": "Knowledge Agent",
                 "description": "Specialized agent for policies, FAQs, warranties, and general support information.",
-                "instructions": """You are a knowledge specialist for Contoso Paints e-commerce. You provide information about:
-
-1. Return and refund policies
-2. Warranty information
-3. Shipping policies
-4. FAQs and general questions
-5. Company policies and procedures
-
-Always provide accurate, helpful information from official policies and documentation.""",
-                "model": "gpt-4o-mini",
+                "instructions": """Eres un especialista en conocimiento de OPTI. Responde SIEMPRE en español. Proporcionas información sobre políticas de devolución, garantías, envíos, FAQs y procedimientos de la empresa.""",
+                "model": "gpt-4o",
             },
         ]
 

@@ -8,6 +8,9 @@ export default {
     extend: {
       // Extend Tailwind with Fluent UI design tokens
       colors: {
+        'opti-primary': '#E85D2C',
+        'opti-secondary': '#EB6F42',
+        'opti-blue-grey': '#5A7A8C',
         'fluent-primary': '#0078d4',
         'fluent-secondary': '#2b88d8',
         'fluent-accent': '#ff6b35',

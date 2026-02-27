@@ -1,26 +1,17 @@
 import React from 'react';
 import { Button } from '@fluentui/react-components';
 import { ChatCircle, Sun, Moon } from '@phosphor-icons/react';
-import { CartDrawer } from '@/components/CartDrawer';
 import { LoginButton } from '@/components/LoginButton';
 import { useTheme } from '@/contexts/ThemeContext';
 
 interface BottomNavigationProps {
   onToggleChat?: () => void;
   isChatOpen?: boolean;
-  cartItems?: any[];
-  onUpdateQuantity?: (id: string, quantity: number) => void;
-  onRemoveItem?: (id: string) => void;
-  onCheckout?: () => void;
 }
 
 export const BottomNavigation: React.FC<BottomNavigationProps> = ({
   onToggleChat,
   isChatOpen = false,
-  cartItems = [],
-  onUpdateQuantity,
-  onRemoveItem,
-  onCheckout
 }) => {
   const { themeMode, toggleTheme } = useTheme();
 
@@ -30,9 +21,9 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
         {/* Left side - Brand */}
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 bg-primary rounded flex items-center justify-center">
-            <span className="text-white text-xs font-bold">S</span>
+            <span className="text-white text-xs font-bold">O</span>
           </div>
-          <span className="text-sm font-medium text-foreground">ShopChat</span>
+          <span className="text-sm font-medium text-foreground">OPTI</span>
         </div>
         
         {/* Right side - All Actions */}
@@ -48,14 +39,6 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
               title={isChatOpen ? 'Close Chat' : 'Open Chat'}
             />
           )}
-          
-          {/* Cart Button */}
-          <CartDrawer
-            cartItems={cartItems}
-            onUpdateQuantity={onUpdateQuantity}
-            onRemoveItem={onRemoveItem}
-            onCheckout={onCheckout}
-          />
           
           {/* Theme Toggle */}
           <Button

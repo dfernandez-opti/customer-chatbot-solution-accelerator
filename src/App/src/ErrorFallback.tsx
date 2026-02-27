@@ -2,38 +2,54 @@ import { Button, Card, Text } from "@fluentui/react-components";
 import { Alert24Regular, ArrowClockwise24Regular } from "@fluentui/react-icons";
 
 export const ErrorFallback = ({ error, resetErrorBoundary }) => {
-  // When encountering an error in the development mode, rethrow it and don't display the boundary.
-  // The parent UI will take care of showing a more helpful dialog.
-  if (import.meta.env.DEV) throw error;
-
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <Card className="mb-6 p-4 bg-red-50 border-red-200">
-          <div className="flex items-center gap-2 mb-2">
-            <Alert24Regular className="text-red-600" />
-            <Text weight="semibold" className="text-red-800">Application Error</Text>
+    <div className="min-h-screen bg-background flex items-center justify-center p-6">
+      <div className="w-full max-w-md space-y-6">
+        <div className="text-center">
+          <img src="/opti-logo.png" alt="OPTI" className="h-12 mx-auto mb-4 opacity-80" />
+          <h1 className="text-xl font-semibold text-foreground mb-1">
+            Acceso restringido
+          </h1>
+          <p className="text-muted-foreground text-sm">
+            Tu acceso ha sido bloqueado por uso indebido del asistente de inteligencia artificial. Por políticas de seguridad, no podemos continuar la sesión en este momento.
+          </p>
+        </div>
+
+        <Card className="p-4 border-border">
+          <div className="flex items-start gap-3">
+            <Alert24Regular className="text-amber-500 flex-shrink-0 mt-0.5" />
+            <div>
+              <Text weight="semibold" className="text-foreground">
+                ¿Qué puedes hacer?
+              </Text>
+              <ul className="mt-2 text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                <li>Si consideras que fue un error, intenta más tarde con una consulta diferente</li>
+                <li>Evita solicitudes que intenten eludir las restricciones del asistente</li>
+                <li>Contacta al equipo de OPTI si necesitas asistencia</li>
+              </ul>
+            </div>
           </div>
-          <Text className="text-red-700">
-            Something unexpected happened while running the application. The error details are shown below.
-          </Text>
         </Card>
-        
-        <Card className="p-4 mb-6">
-          <Text weight="semibold" size={200} className="text-gray-600 mb-2">Error Details:</Text>
-          <pre className="text-xs text-red-600 bg-gray-100 p-3 rounded border overflow-auto max-h-32">
-            {error.message}
-          </pre>
-        </Card>
-        
-        <Button 
-          onClick={resetErrorBoundary} 
+
+        <Button
+          onClick={resetErrorBoundary}
           className="w-full"
-          appearance="outline"
+          appearance="primary"
           icon={<ArrowClockwise24Regular />}
         >
-          Try Again
+          Reintentar
         </Button>
+
+        {import.meta.env.DEV && (
+          <details className="text-xs">
+            <summary className="cursor-pointer text-muted-foreground hover:text-foreground">
+              Detalles técnicos (solo desarrollo)
+            </summary>
+            <pre className="mt-2 p-3 rounded bg-muted text-red-600 overflow-auto max-h-24">
+              {error?.message || "Error desconocido"}
+            </pre>
+          </details>
+        )}
       </div>
     </div>
   );

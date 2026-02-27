@@ -26,9 +26,13 @@ export const setEasyAuthHeaders = (headers: Record<string, string> | null) => {
   cachedEasyAuthHeaders = headers;
 };
 
-// Add request interceptor to handle authentication
+// Add request interceptor to handle authentication and correlation ID
 api.interceptors.request.use(
   (config) => {
+    // Correlation ID for security event tracing
+    if (!config.headers['X-Correlation-ID']) {
+      config.headers['X-Correlation-ID'] = crypto.randomUUID?.() || `req-${Date.now()}`;
+    }
     // Add cached Easy Auth headers to all requests
     if (cachedEasyAuthHeaders && config.headers) {
       Object.keys(cachedEasyAuthHeaders).forEach(key => {
@@ -69,6 +73,7 @@ export interface Product {
   category: string;
   inStock: boolean;
   description: string;
+  isService?: boolean;
 }
 
 export interface ChatMessage {
@@ -117,7 +122,54 @@ export interface CartItem {
   quantity: number;
 }
 
+// Servicios OPTI - colores designados del branding
+const DEMO_PRODUCTS: Product[] = [
+  { id: 'OPT-SEC', title: 'Servicios de Ciberseguridad', price: 0, rating: 0, reviewCount: 0, image: 'https://placehold.co/400x400/1C4E60/ffffff?text=SEC', category: 'Ciberseguridad', inStock: true, description: 'Protección integral contra amenazas cibernéticas con reducción de riesgos, visibilidad centralizada y cumplimiento normativo.', isService: true },
+  { id: 'OPT-ITSM', title: 'Servicios ITSM', price: 0, rating: 0, reviewCount: 0, image: 'https://placehold.co/400x400/D74A3D/ffffff?text=ITSM', category: 'Gestión IT', inStock: true, description: 'Gestión de servicios de TI para optimizar operaciones y entregar valor al negocio.', isService: true },
+  { id: 'OPT-IA', title: 'Servicios de Inteligencia Artificial', price: 0, rating: 0, reviewCount: 0, image: 'https://placehold.co/400x400/F39C12/ffffff?text=IA', category: 'Inteligencia Artificial', inStock: true, description: 'Soluciones de IA para transformar procesos y tomar decisiones basadas en datos.', isService: true },
+  { id: 'OPT-BRE', title: 'Boutique de Recursos Especializados', price: 0, rating: 0, reviewCount: 0, image: 'https://placehold.co/400x400/A15C1D/ffffff?text=BRE', category: 'Talento', inStock: true, description: 'Recursos especializados para proyectos tecnológicos de alto impacto.', isService: true },
+  { id: 'OPT-CSP', title: 'Servicios CSP', price: 0, rating: 0, reviewCount: 0, image: 'https://placehold.co/400x400/F29C13/ffffff?text=CSP', category: 'Cloud', inStock: true, description: 'Soluciones de Cloud Solution Provider para maximizar el valor de Azure y Microsoft 365.', isService: true },
+  { id: 'OPT-CD', title: 'Cloud and Data', price: 0, rating: 0, reviewCount: 0, image: 'https://placehold.co/400x400/81312E/ffffff?text=C%26D', category: 'Cloud y Datos', inStock: true, description: 'Infraestructura cloud y gestión de datos para entornos híbridos y multicloud.', isService: true },
+  { id: 'OPT-ADM', title: 'Servicios Administrados', price: 0, rating: 0, reviewCount: 0, image: 'https://placehold.co/400x400/3D8C9B/ffffff?text=ADM', category: 'Managed Services', inStock: true, description: 'Gestión proactiva de infraestructura y operaciones IT para mayor disponibilidad.', isService: true },
+  { id: 'OPT-SEG', title: 'Seguridad Integral basada en Microsoft', price: 0, rating: 0, reviewCount: 0, image: 'https://placehold.co/400x400/1C4E60/ffffff?text=SEG', category: 'Seguridad', inStock: true, description: 'Estrategia de seguridad integral basada en el ecosistema Microsoft. Reducción de riesgos cibernéticos, visibilidad centralizada de amenazas, cumplimiento normativo y respuesta proactiva ante incidentes.', isService: true },
+];
+
 // API Functions
+export interface HealthStatus {
+  status: string;
+  content_safety: 'enabled' | 'disabled';
+  database?: string;
+  openai?: string;
+  auth?: string;
+}
+
+export const getHealthStatus = async (): Promise<HealthStatus | null> => {
+  try {
+    const response = await api.get<HealthStatus>('/health');
+    return response.data;
+  } catch {
+    return null;
+  }
+};
+
+/** Content Safety: verificación REAL (llama a Azure, no solo config) */
+export interface ContentSafetyDebug {
+  configured: boolean;
+  test_passed?: boolean;
+  test_result?: string;
+  error?: string;
+  message?: string;
+}
+
+export const getContentSafetyDebug = async (): Promise<ContentSafetyDebug | null> => {
+  try {
+    const response = await api.get<ContentSafetyDebug>('/debug/content-safety');
+    return response.data;
+  } catch {
+    return null;
+  }
+};
+
 export const getProducts = async (): Promise<Product[]> => {
   try {
     const response = await api.get('/api/products/');
@@ -131,18 +183,28 @@ export const getProducts = async (): Promise<Product[]> => {
     const transformedData = response.data.map((product: any) => ({
       id: product.id,
       title: product.title,
-      price: product.price,
+      price: product.price ?? 0,
       originalPrice: product.original_price || undefined,
-      rating: product.rating,
-      reviewCount: product.review_count,
-      image: product.image,
+      rating: product.rating ?? 0,
+      reviewCount: product.review_count ?? 0,
+      image: product.image || '/opti-logo.png',
       category: product.category,
-      inStock: product.in_stock,
-      description: product.description || ''
+      inStock: product.in_stock !== false,
+      description: product.description || '',
+      isService: product.is_service ?? product.isService ?? false
     }));
     
     return transformedData;
   } catch (error: any) {
+    // Use demo data when API is unavailable (network error, 500, backend not running)
+    const isNetworkError = error.message?.includes('Network Error') || 
+      error.code === 'ERR_NETWORK' || 
+      error.message?.includes('Failed to fetch');
+    const isServerError = error.response?.status >= 500 || error.response?.status === 404;
+    
+    if (isNetworkError || isServerError) {
+      return DEMO_PRODUCTS;
+    }
     throw new Error(`Failed to fetch products: ${error.message || 'Unknown error'}`);
   }
 };
@@ -292,5 +354,30 @@ export const checkoutCart = async (): Promise<{ order_id: string; order_number: 
     return response.data.data;
   } catch (error) {
     throw error;
+  }
+};
+
+/** Oportunidades de cotización - se guardan en el backend (JSONL en /tmp/opportunities.jsonl por defecto) */
+export interface OpportunityCreatePayload {
+  phone: string;
+  company: string;
+  service: string;
+  contact_name?: string;
+  email?: string;
+  session_id?: string;
+  user_message_snippet?: string;
+}
+
+export const createOpportunity = async (payload: OpportunityCreatePayload): Promise<{ id: string; message: string }> => {
+  const response = await api.post('/api/opportunities', payload);
+  return response.data;
+};
+
+export const getOpportunitiesSummary = async (): Promise<{ total: number }> => {
+  try {
+    const response = await api.get('/api/opportunities/summary');
+    return response.data;
+  } catch {
+    return { total: 0 };
   }
 };

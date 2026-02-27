@@ -9,8 +9,8 @@
   --coral-text-primary: #ffffff;
   --coral-text-secondary: #e6e6e6;
   --coral-text-muted: #cccccc;
-  --coral-brand-primary: #3A80C0;
-  --coral-brand-secondary: #4F8BC4;
+  --coral-brand-primary: #E85D2C;
+  --coral-brand-secondary: #EB6F42;
 }
 
 /* Light theme overrides */
@@ -20,22 +20,29 @@
   --coral-bg-tertiary: #e9ecef;
   --coral-text-primary: #212529;
   --coral-text-secondary: #495057;
-  --coral-text-muted: #6c757d;
-  --coral-brand-primary: #3A80C0;
-  --coral-brand-secondary: #4F8BC4;
+  --coral-text-muted: #6B7280;
+  --coral-brand-primary: #E85D2C;
+  --coral-brand-secondary: #EB6F42;
 }
 
-/* Global theme integration - Apply to html and body */
-html, body {
+/* Global theme integration - Apply to html, body, and root */
+html, body, #root {
   transition: background-color 0.2s ease, color 0.2s ease;
+  min-height: 100vh;
 }
 
-.theme-dark {
+#root {
+  display: block;
+}
+
+.theme-dark,
+body.theme-dark #root {
   background-color: var(--coral-bg-primary) !important;
   color: var(--coral-text-primary) !important;
 }
 
-.theme-light {
+.theme-light,
+body.theme-light #root {
   background-color: var(--coral-bg-primary) !important;
   color: var(--coral-text-primary) !important;
 }
@@ -192,6 +199,8 @@ html, body {
   display: grid;
   gap: 12px;
   width: 100%;
+  padding-bottom: 4rem;
+  min-height: min-content;
 }
 
 /* Responsive grid breakpoints */
@@ -365,7 +374,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   border-color: var(--coral-brand-primary);
   outline: none;
-  box-shadow: 0 0 0 2px rgba(58, 128, 192, 0.2);
+  box-shadow: 0 0 0 2px rgba(232, 93, 44, 0.2);
 }
 
 /* Button theming */

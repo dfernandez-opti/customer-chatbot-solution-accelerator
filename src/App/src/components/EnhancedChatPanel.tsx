@@ -8,6 +8,16 @@ import { Add20Regular } from '@fluentui/react-icons';
 import { PaperPlaneRight } from '@phosphor-icons/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { EnhancedChatMessageBubble } from './EnhancedChatMessageBubble';
+import { OpportunityForm } from './Opportunities/OpportunityForm';
+import { SecurityBlock } from './Security/SecurityBlock';
+
+interface BlockedError {
+  attackType: string;
+  severity: string;
+  message: string;
+  correlationId?: string;
+  suggestedPrompts?: string[];
+}
 
 interface EnhancedChatPanelProps {
   messages: ChatMessage[];
@@ -16,9 +26,12 @@ interface EnhancedChatPanelProps {
   isTyping: boolean;
   isOpen: boolean;
   onClose: () => void;
-  onAddToCart?: (product: Product) => void;
+  onRequestQuote?: (product: Product) => void;
   className?: string;
   isLoading?: boolean;
+  blockedError?: BlockedError | null;
+  onDismissBlocked?: () => void;
+  sessionId?: string | null;
 }
 
 export const EnhancedChatPanel = ({
@@ -28,9 +41,12 @@ export const EnhancedChatPanel = ({
   isTyping,
   isOpen,
   onClose,
-  onAddToCart,
+  onRequestQuote,
   className,
   isLoading = false,
+  blockedError,
+  onDismissBlocked,
+  sessionId,
 }: EnhancedChatPanelProps) => {
   const [inputValue, setInputValue] = useState('');
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -97,29 +113,42 @@ export const EnhancedChatPanel = ({
               </div>
             ) : (
               <>
+                {/* Security Block - when message was blocked */}
+                {blockedError && (
+                  <div className="mb-4">
+                    <SecurityBlock
+                      attackType={blockedError.attackType}
+                      severity={blockedError.severity}
+                      message={blockedError.message}
+                      correlationId={blockedError.correlationId}
+                      suggestedPrompts={blockedError.suggestedPrompts}
+                      onDismiss={onDismissBlocked}
+                    />
+                  </div>
+                )}
                 {/* Welcome Message - Only show when no messages and not loading */}
                 {messages.length === 0 && !isTyping && !isLoading && (
               <div className="flex flex-col items-center justify-center text-center space-y-6 h-full min-h-[400px]">
-                {/* AI Assistant Icon */}
+                {/* AI Assistant Icon - OPTI branding */}
                 <img 
-                  src="/contoso-ai-icon.png" 
-                  alt="AI Assistant" 
-                  className="w-16 h-16"
+                  src="/opti-logo.png" 
+                  alt="OPTI - tecnologías que dan valor" 
+                  className="w-20 h-auto object-contain"
                 />
                 
                 {/* Welcome Text */}
                 <div className="space-y-2">
                   <h2 className="text-xl font-semibold text-foreground">
-                    Hey! I'm here to help.
+                    ¡Hola! Estoy aquí para ayudarte.
                   </h2>
                   <p className="text-muted-foreground max-w-sm">
-                    Ask me about returns & exchanges, warranties, or general product advice.
+                    Pregúntame sobre nuestros servicios, cotizaciones, políticas o cualquier duda.
                   </p>
                 </div>
                 
                 {/* Quick Start Hint */}
                 <div className="text-xs text-muted-foreground">
-                  Click the plus icon to start a new chat anytime
+                  Haz clic en el icono + para iniciar una nueva conversación
                 </div>
               </div>
             )}
@@ -129,21 +158,26 @@ export const EnhancedChatPanel = ({
               <EnhancedChatMessageBubble
                 key={message.id}
                 message={message}
-                onAddToCart={onAddToCart}
+                onRequestQuote={onRequestQuote}
               />
             ))}
             
             {/* Typing Indicator - Only show when AI is actively responding */}
             {isTyping && !isLoading && (
-              <EnhancedChatMessageBubble
-                message={{
-                  id: 'typing',
-                  content: '',
-                  sender: 'assistant',
-                  timestamp: new Date()
-                }}
-                isTyping={true}
-              />
+              <div className="space-y-1">
+                <EnhancedChatMessageBubble
+                  message={{
+                    id: 'typing',
+                    content: '',
+                    sender: 'assistant',
+                    timestamp: new Date()
+                  }}
+                  isTyping={true}
+                />
+                <p className="text-xs text-muted-foreground pl-2">
+                  Procesando... Si tarda más de lo habitual, el servicio puede estar ocupado. Por favor espera.
+                </p>
+              </div>
             )}
               </>
             )}
@@ -154,6 +188,10 @@ export const EnhancedChatPanel = ({
 
       {/* Fixed Input Footer */}
       <div className="flex-shrink-0 border-t bg-background p-4 space-y-3">
+        {/* Registrar cotización - acceso rápido */}
+        <div className="flex justify-end">
+          <OpportunityForm sessionId={sessionId} />
+        </div>
         {/* Input Field */}
         <div className="flex-1 relative">
           <Input
@@ -170,7 +208,7 @@ export const EnhancedChatPanel = ({
               variant="ghost"
               size="sm"
               className="h-8 w-8 p-0"
-              title="Start new chat"
+              title="Nueva conversación"
               onClick={onNewChat}
               disabled={isTyping || isLoading}
             >
@@ -180,7 +218,7 @@ export const EnhancedChatPanel = ({
               variant="ghost"
               size="sm"
               className="h-8 w-8 p-0"
-              title="Send message"
+              title="Enviar mensaje"
               onClick={handleSend}
               disabled={!inputValue.trim() || isTyping || isLoading}
             >
@@ -191,7 +229,7 @@ export const EnhancedChatPanel = ({
 
         {/* Disclaimer */}
         <p className="text-xs text-muted-foreground text-center">
-          AI-generated content may be incorrect
+          El contenido generado por IA puede contener errores
         </p>
       </div>
     </div>

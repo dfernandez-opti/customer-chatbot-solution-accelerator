@@ -5,6 +5,14 @@ import PanelRight from './PanelRight';
 import PanelRightToolbar from './PanelRightToolbar';
 import eventBus from './eventbus';
 
+interface BlockedError {
+  attackType: string;
+  severity: string;
+  message: string;
+  correlationId?: string;
+  suggestedPrompts?: string[];
+}
+
 interface ChatSidebarProps {
   isOpen?: boolean;
   onClose?: () => void;
@@ -13,7 +21,10 @@ interface ChatSidebarProps {
   onNewChat?: () => void;
   isTyping?: boolean;
   isLoading?: boolean;
-  onAddToCart?: (product: Product) => void;
+  onRequestQuote?: (product: Product) => void;
+  blockedError?: BlockedError | null;
+  onDismissBlocked?: () => void;
+  sessionId?: string | null;
 }
 
 export const ChatSidebar: React.FC<ChatSidebarProps> = ({
@@ -24,7 +35,10 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
   onNewChat,
   isTyping = false,
   isLoading = false,
-  onAddToCart
+  onRequestQuote,
+  blockedError,
+  onDismissBlocked,
+  sessionId,
 }) => {
   // Sync the panel state with the isOpen prop
   useEffect(() => {
@@ -55,7 +69,10 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
           isLoading={isLoading}
           isOpen={isOpen}
           onClose={onClose || (() => {})}
-          onAddToCart={onAddToCart}
+          onRequestQuote={onRequestQuote}
+          blockedError={blockedError}
+          onDismissBlocked={onDismissBlocked}
+          sessionId={sessionId}
           className="h-full"
         />
       </div>

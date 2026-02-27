@@ -1,11 +1,20 @@
+import logging
 from typing import List, Optional
 
 from fastapi import APIRouter, HTTPException, Query
 
 from ..database import get_db_service
 from ..models import APIResponse, Product, ProductCreate, ProductUpdate
+from ..services.demo_products import DEMO_PRODUCTS
 
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/products", tags=["products"])
+
+
+def _get_products_fallback():
+    """Return demo products when Cosmos DB is not configured."""
+    logger.info("Products: using demo data (Cosmos not configured)")
+    return DEMO_PRODUCTS
 
 
 @router.get("/", response_model=List[Product])
@@ -34,7 +43,15 @@ async def get_products(
             "sort_order": sort_order,
         }
 
-        products = await get_db_service().get_products(search_params)
+        try:
+            db = get_db_service()
+            products = await db.get_products(search_params)
+        except Exception as e:
+            err_str = str(e).lower()
+            if "cosmos" in err_str or "not configured" in err_str:
+                products = _get_products_fallback()
+            else:
+                raise HTTPException(status_code=500, detail=f"Error fetching products: {str(e)}")
 
         # Simple pagination
         start_idx = (page - 1) * page_size
@@ -43,6 +60,8 @@ async def get_products(
 
         return paginated_products
 
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Error fetching products: {str(e)}"
@@ -53,7 +72,16 @@ async def get_products(
 async def get_product(product_id: str):
     """Get a specific product by ID"""
     try:
-        product = await get_db_service().get_product(product_id)
+        try:
+            db = get_db_service()
+            product = await db.get_product(product_id)
+        except Exception as e:
+            err_str = str(e).lower()
+            if "cosmos" in err_str or "not configured" in err_str:
+                products = _get_products_fallback()
+                product = next((p for p in products if p.id == product_id), None)
+            else:
+                raise
         if not product:
             raise HTTPException(status_code=404, detail="Product not found")
         return product
@@ -105,10 +133,20 @@ async def delete_product(product_id: str):
 async def get_categories():
     """Get list of all product categories"""
     try:
-        products = await get_db_service().get_products()
+        try:
+            db = get_db_service()
+            products = await db.get_products()
+        except Exception as e:
+            err_str = str(e).lower()
+            if "cosmos" in err_str or "not configured" in err_str:
+                products = _get_products_fallback()
+            else:
+                raise
         categories = list(set(product.category for product in products))
         categories.sort()
         return categories
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Error fetching categories: {str(e)}"

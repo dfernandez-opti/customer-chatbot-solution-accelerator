@@ -60,12 +60,18 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     // Set data attribute for CSS selectors
     root.setAttribute('data-theme', themeMode);
     
-    // Update both html and body classes for global styling
+    // Update html, body, and root div classes for global styling
     root.className = root.className.replace(/theme-\w+/g, '');
     root.classList.add(`theme-${themeMode}`);
     
     body.className = body.className.replace(/theme-\w+/g, '');
     body.classList.add(`theme-${themeMode}`);
+    
+    const rootDiv = document.getElementById('root');
+    if (rootDiv) {
+      rootDiv.className = rootDiv.className.replace(/theme-\w+/g, '');
+      rootDiv.classList.add(`theme-${themeMode}`);
+    }
     
     // Set background directly on body to ensure it covers everything
     body.style.backgroundColor = themeMode === 'dark' ? '#1a1a1a' : '#ffffff';

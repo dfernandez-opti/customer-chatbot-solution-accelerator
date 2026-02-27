@@ -3,7 +3,7 @@ import argparse
 import time
 
 import pandas as pd
-from azure.identity import AzureCliCredential, get_bearer_token_provider
+from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
 from azure.search.documents.indexes.models import (
@@ -61,8 +61,8 @@ def create_search_index():
     # Define index schema
     fields = [
         SearchField(name="id", type=SearchFieldDataType.String, key=True),
-        SearchField(name="content", type=SearchFieldDataType.String),
-        SearchField(name="sourceurl", type=SearchFieldDataType.String),
+        SearchField(name="content", type=SearchFieldDataType.String, searchable=True, retrievable=True),
+        SearchField(name="sourceurl", type=SearchFieldDataType.String, retrievable=True),
         SearchField(
             name="contentVector",
             type=SearchFieldDataType.Collection(SearchFieldDataType.Single),
@@ -137,7 +137,7 @@ def get_embeddings_batch(
     """Get embeddings for multiple texts in batches"""
     model_id = "text-embedding-ada-002"
     token_provider = get_bearer_token_provider(
-        AzureCliCredential(), "https://cognitiveservices.azure.com/.default"
+        DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
     )
     client = AzureOpenAI(
         api_version=openai_api_version,

@@ -60,7 +60,7 @@ Ensure you have access to an [Azure subscription](https://azure.microsoft.com/fr
 📖 **Follow:** [Quota Check Instructions](./QuotaCheck.md) to ensure sufficient capacity.
 
 **Default Quota Configuration:**
-- **gpt-4o-mini:** 50k tokens
+- **gpt-4o:** 10k tokens (mínimo)
 
 **Recommended Configuration:**
 - **Minimum:** 50k tokens for Global Standard GPT-4o-mini
@@ -267,7 +267,18 @@ azd auth login --tenant-id <tenant-id>
    > 2. Navigate to **Microsoft Entra ID** from the left-hand menu.
    > 3. Under the **Overview** section, locate the **Tenant ID** field. Copy the value displayed.
 
-### 4.2 Start Deployment
+### 4.2 Configurar suscripción (OPTI: Prod-Seguridad)
+
+Para desplegar en la suscripción **Prod-Seguridad** (tenant DEMOS OPTO), ejecuta antes de `azd up`:
+
+```shell
+az account set --subscription "Prod-Seguridad"
+azd config set defaults.subscription "e52da50f-bfae-4cbf-9188-68d2e5833dd4"
+```
+
+> **Nota:** El ID de suscripción `e52da50f-bfae-4cbf-9188-68d2e5833dd4` corresponde a Prod-Seguridad. Si tu suscripción tiene otro ID, usa `az account list --output table` para verificar.
+
+### 4.3 Start Deployment
 
 ```shell
 azd up
@@ -284,7 +295,40 @@ azd up
 
 **⚠️ Deployment Issues:** If you encounter errors or timeouts, try a different region as there may be capacity constraints. For detailed error solutions, see our [Troubleshooting Guide](./TroubleShootingSteps.md).
 
-### 4.3 Get Application URL
+### 4.3.1 Si no ves los cambios (OPTI: build y push manual)
+
+Si `azd up` termina rápido y no ves los cambios de UI (logo OPTI, sin carrito, botones Solicitar cotización), las imágenes Docker no se han reconstruido. Ejecuta el build y push manual:
+
+```powershell
+cd customer-chatbot-solution-accelerator
+
+# Si la suscripción no tiene Container Registry registrado, primero:
+az provider register --namespace Microsoft.ContainerRegistry
+# Esperar 1-2 min y verificar: az provider show -n Microsoft.ContainerRegistry
+
+# Crear ACR si no existe y construir imágenes (OPTI Summit)
+.\scripts\build-and-push.ps1 -CreateAcr
+
+# O solo construir (sin ACR): .\scripts\build-and-push.ps1 -BuildOnly
+```
+
+Por defecto usa: ACR `optisummitacr`, tag `opti-summit`, RG `rg-summit-dspm-ai-resources-app`.
+
+**Si despliegas con azd**, configura antes el ACR y tag:
+
+```shell
+azd env set AZURE_CONTAINER_REGISTRY_HOST optisummitacr.azurecr.io
+azd env set AZURE_ENV_IMAGETAG opti-summit
+```
+
+Luego reinicia los App Services:
+
+```powershell
+az webapp restart --name app-<sufijo> --resource-group rg-summit-dspm-ai-resources-app
+az webapp restart --name api-<sufijo> --resource-group rg-summit-dspm-ai-resources-app
+```
+
+### 4.4 Get Application URL
 
 After successful deployment:
 1. Open [Azure Portal](https://portal.azure.com/)
@@ -293,6 +337,19 @@ After successful deployment:
 4. Copy the **Application URI**
 
 ⚠️ **Important:** Complete [Post-Deployment Steps](#step-5-post-deployment-configuration) before accessing the application.
+
+📋 **El chatbot no responde:** Ver [Troubleshooting Chatbot](./TroubleshootingChatbot.md) para revisar variables y scripts post-despliegue.
+
+### 4.5 (Opcional) Azure Content Safety – alertas por contenido indebido
+
+Para moderar mensajes y levantar alertas cuando un usuario solicite contenido inapropiado:
+
+1. Crea un recurso **Azure AI Content Safety** en el portal (o con `az cognitiveservices account create`).
+2. En el App Service del backend, añade estas variables de entorno:
+   - `CONTENT_SAFETY_ENABLED` = `true`
+   - `CONTENT_SAFETY_ENDPOINT` = URL del recurso (ej. `https://xxx.cognitiveservices.azure.com`)
+   - `CONTENT_SAFETY_KEY` = clave del recurso
+3. Reinicia el backend. Los mensajes que violen políticas se rechazarán y se registrará `CONTENT_SAFETY_REJECTED` en logs para crear alertas en Azure Monitor.
 
 ## Step 5: Post-Deployment Configuration
 
@@ -313,6 +370,8 @@ Run the below scripts to create and activate virtual environment.
 ### 5.2 Initialize Data and Agents
 
 **Step 1: Populate Product Catalogs and Search Indexes**
+
+> **OPTI:** El catálogo ya está configurado con los servicios OPTI en `infra/data/products/products.csv`. Los scripts cargarán automáticamente SEC, ITSM, IA, BRE, CSP, Cloud and Data, Servicios Administrados y Seguridad Integral en Cosmos DB y en el índice de búsqueda.
 
 Run the data setup script to load sample product data
 

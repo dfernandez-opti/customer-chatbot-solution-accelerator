@@ -14,7 +14,7 @@
   "python.analysis.autoImportCompletions": true,
 
   // Pylance Settings
-  "python.languageServer": "Pylance",
+  "python.languageServer": "None",
   "python.analysis.typeCheckingMode": "basic",
   "python.analysis.diagnosticMode": "workspace",
   "python.analysis.stubPath": "./src/api/.venv/Lib/site-packages",

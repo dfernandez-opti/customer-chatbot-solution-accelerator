@@ -103,7 +103,7 @@ export const ChatPanel = ({
           <div className="flex items-end gap-2">
             <div className="flex-1 relative">
               <Input
-                placeholder="Ask about products, get recommendations..."
+                placeholder="Pregunta sobre servicios, cotizaciones..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyPress}

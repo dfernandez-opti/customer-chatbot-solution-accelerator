@@ -30,7 +30,7 @@ param location string
   azd:{
     type: 'location'
     usageName: [
-      'OpenAI.GlobalStandard.gpt-4o-mini,50'
+      'OpenAI.GlobalStandard.gpt-4o,10'
     ]
   }
 })
@@ -42,10 +42,10 @@ param secondaryCosmosLocation string = 'canadacentral'
 
 @minLength(1)
 @description('Optional. Name of the GPT model to deploy:')
-param gptModelName string = 'gpt-4o-mini'
+param gptModelName string = 'gpt-4o'
 
-@description('Optional. Version of the GPT model to deploy. Defaults to 2024-07-18.')
-param gptModelVersion string = '2024-07-18'
+@description('Optional. Version of the GPT model to deploy. Defaults to 2024-08-06 for gpt-4o.')
+param gptModelVersion string = '2024-08-06'
 
 @description('Optional. Version of the OpenAI.')
 param azureOpenAIApiVersion string = '2025-01-01-preview'
@@ -61,8 +61,8 @@ param azureAiAgentApiVersion string = '2025-05-01'
 @description('Optional. GPT model deployment type. Defaults to GlobalStandard.')
 param gptModelDeploymentType string = 'GlobalStandard'
 
-@description('Optional. AI model deployment token capacity. Defaults to 50 for optimal performance with multi-agent architecture.')
-param gptModelCapacity int = 50
+@description('Optional. AI model deployment token capacity. Defaults to 10 (min for quota availability). Increase to 50+ when quota allows.')
+param gptModelCapacity int = 10
 
 @minLength(1)
 @description('Name of the Text Embedding model to deploy:')
@@ -100,7 +100,7 @@ param virtualMachineAdminPassword string?
 
 // These parameters are changed for testing - please reset as part of publication
 @description('Optional. The host (excluding https://) of an existing container registry. This is the `loginServer` when using Azure Container Registry.')
-param containerRegistryHost string = 'ccbcontainerreg.azurecr.io'
+param containerRegistryHost string = 'optisummitacr.azurecr.io'
 
 @description('Optional. The image tag to use for container images. Defaults to "latest_v2".')
 param imageTag string = 'latest_v2'
@@ -1101,6 +1101,8 @@ module webSiteBackend 'modules/web-sites.bicep' = {
           APP_ENV: 'Prod'
 
           ALLOWED_ORIGINS_STR: 'https://app-${solutionSuffix}.azurewebsites.net'
+          SECURITY_EVENTS_DATA_DIR: '/home/LogFiles/data/security-events'
+          OPPORTUNITIES_DATA_DIR: '/home/LogFiles/data/opportunities'
           AZURE_FOUNDRY_ENDPOINT: aiFoundryAiProjectEndpoint
           AZURE_SEARCH_ENDPOINT: searchService.outputs.endpoint
           AZURE_SEARCH_INDEX: 'policies'

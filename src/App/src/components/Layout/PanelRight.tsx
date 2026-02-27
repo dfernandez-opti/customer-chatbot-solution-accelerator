@@ -99,7 +99,7 @@ const PanelRight: React.FC<PanelRightProps> = ({
         width: `${width}px`,
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "var(--coral-bg-primary)",
+        backgroundColor: "var(--coral-bg-primary, hsl(var(--background)))",
         height: "100%",
         boxSizing: "border-box",
         position: "relative",

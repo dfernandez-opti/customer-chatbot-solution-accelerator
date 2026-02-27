@@ -10,7 +10,7 @@ export const sortOptions = [
   { value: 'newest', label: 'Newest First' }
 ];
 
-export const categories = ['All', 'Electronics', 'Furniture', 'Kitchen', 'Lighting', 'Plants', 'Accessories'];
+export const categories = ['All', 'Ciberseguridad', 'Gestión IT', 'Inteligencia Artificial', 'Talento', 'Cloud', 'Cloud y Datos', 'Managed Services', 'Seguridad'];
 
 export function sortProducts(products: Product[], sortBy: SortBy): Product[] {
   return [...products].sort((a, b) => {
@@ -37,8 +37,8 @@ export function filterProducts(products: Product[], searchQuery: string, filters
                          product.category.toLowerCase().includes(searchQuery.toLowerCase());
     
     const matchesCategory = filters.category === 'All' || product.category === filters.category;
-    const matchesPrice = product.price >= filters.minPrice && product.price <= filters.maxPrice;
-    const matchesRating = product.rating >= filters.minRating;
+    const matchesPrice = product.isService || (product.price >= filters.minPrice && product.price <= filters.maxPrice);
+    const matchesRating = product.isService || product.rating >= filters.minRating;
     const matchesStock = !filters.inStockOnly || product.inStock;
 
     return matchesSearch && matchesCategory && matchesPrice && matchesRating && matchesStock;
